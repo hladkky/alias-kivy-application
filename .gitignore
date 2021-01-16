@@ -1,0 +1,12 @@
+__pycache__/
+.buildozer/
+.vscode/
+
+bin/
+
+logs/
+
+# kivy showcases
+colors.py
+icons.py
+test.py
