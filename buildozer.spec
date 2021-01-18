@@ -13,22 +13,22 @@ package.domain = org.alias_uk
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-#source.include_exts = py,png,jpg,kv,atlas,gif,json,ttf,log
+source.include_exts = py,png,jpg,kv,atlas,gif,json,ttf
 
 # (list) List of inclusions using pattern matching
-#source.include_patterns = assets/*,images/*.png
+source.include_patterns = assets/*,constants/*,fonts/*,screens/*,widgets/*
 
 # (list) Source files to exclude (let empty to not exclude anything)
-#source.exclude_exts = spec
+source.exclude_exts = spec, gitignore
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-#source.exclude_dirs = tests, bin
+source.exclude_dirs = tests, bin
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 0.1.1
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
+requirements = python3,kivy==master,git+https://github.com/HeaTTheatR/KivyMD.git,sdl2_ttf==2.0.15
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
