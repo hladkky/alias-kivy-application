@@ -50,7 +50,7 @@ class DictionaryCarouselItem(OutlineButton):
 
 class GameCard(Scatter):
     start_position = None
-    title = StringProperty('Картка')
+    title = StringProperty("Картка")
 
     def on_touch_down(self, touch):
         super().on_touch_down(touch)

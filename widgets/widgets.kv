@@ -1,27 +1,27 @@
 <FontLabel>:
   font_name: "./fonts/GothamPro-Regular"
-  font_size: 20
+  font_size: "20sp"
   color: WHITE_COLOR
 
 
 <BoldFontLabel>:
   font_name: "./fonts/GothamPro-Bold"
-  font_size: 20
+  font_size: "20sp"
   color: WHITE_COLOR
 
 
 <TextButton>:
   font_name: BOLD_FONT
-  font_size: 20
+  font_size: "20sp"
   text_color: WHITE_COLOR
-  pos_hint: {'center_x': .5, 'center_y': .5}
+  pos_hint: {"center_x": .5, "center_y": .5}
 
 
 <OutlineButton>
   color: PINK_COLOR
   font_name: BOLD_FONT
-  font_size: 20
-  theme_text_color: 'Custom'
+  font_size: "20sp"
+  theme_text_color: "Custom"
   text_color: PINK_COLOR 
   ripple_color: DARK_PINK_COLOR
   ripple_alpha: .5
@@ -31,7 +31,7 @@
     Line:
       width: 2
       rectangle: self.x-2, self.y-2, self.width+4, self.height+4
-      joint: 'miter'
+      joint: "miter"
 
 
 <TeamLabel>:
@@ -39,13 +39,13 @@
   height: root.height
   md_bg_color: 0, 0, 0, 0
   elevation: 0
-  padding: 20, 15, 0, 10
+  padding: "20dp", "15dp", "0dp", "10dp"
   
   canvas.before:
     Color:
       rgba: 1, 1, 1, 1
     BorderImage:
-      source: './assets/imgs/team_label.png'
+      source: "./assets/imgs/team_label.png"
       border: 0, 0, 0, 0
       pos: self.pos
       size: self.size
@@ -59,12 +59,12 @@
 
 
 <CloseIcon>:
-  icon: 'plus-thick'
-  user_font_size: '32sp'
-  theme_text_color: 'Custom'
+  icon: "plus-thick"
+  user_font_size: "32sp"
+  theme_text_color: "Custom"
   text_color: 1, 1, 1, 1
   size_hint: None, None
-  pos_hint: {'center_x': .5, 'center_y': .6}
+  pos_hint: {"center_x": .5, "center_y": .6}
   canvas.before:
     PushMatrix
     Rotate:
@@ -76,22 +76,22 @@
 
 <PrimaryIcon@MDIconButton>:
   size_hint: None, None
-  user_font_size: '42sp'
-  width: 40
-  height: 40
-  theme_text_color: 'Custom'
-  text_color: 1, 1, 1, 1
-  pos_hint: {'center_x': .5, 'center_y': .5}
+  user_font_size: "42sp"
+  width: "40dp"
+  height: "40dp"
+  theme_text_color: "Custom"
+  text_color: WHITE_COLOR
+  pos_hint: {"center_x": .5, "center_y": .5}
 
 
 <DictionaryCarouselItem>:
   font_name: BOLD_FONT
-  theme_text_color: 'Custom'
-  font_size: 30
+  theme_text_color: "Custom"
+  font_size: "30sp"
   ripple_color: DARK_PINK_COLOR
   ripple_alpha: 0
   size_hint: .7, .6
-  pos_hint: {'center_x': .5, 'center_y': .5}
+  pos_hint: {"center_x": .5, "center_y": .5}
 
   MDStackLayout:
     size_hint: 1, 1
@@ -101,17 +101,17 @@
       text: root.title
       color: PINK_COLOR
       text_size: self.size
-      halign: 'center'
-      valign: 'bottom'
+      halign: "center"
+      valign: "bottom"
       size_hint_y: .6
       font_size: 30
 
     FontLabel:
       text: root.description
-      font_size: 12
+      font_size: "12sp"
       text_size: self.size
-      halign: 'center'
-      valign: 'center'
+      halign: "center"
+      valign: "center"
       size_hint_y: .4
 
 
@@ -120,11 +120,11 @@
     pos: root.pos
     height: root.height
     width: root.width
-    source: './assets/imgs/dropdownback.png'
+    source: "./assets/imgs/dropdownback.png"
 
   Carousel:
     id: carousel
-    scroll_distance: 5
+    scroll_distance: "0dp"
     md_bg_color: RED_COLOR
     size_hint: None, 1
     width: root.width
@@ -137,8 +137,8 @@
 
     MDBoxLayout:
       pos: root.pos
-      padding: 20
-      orientation: 'horizontal'
+      padding: "20dp"
+      orientation: "horizontal"
       id: drop_down_box
       opacity: 0
       rows: 1
@@ -147,7 +147,7 @@
       
       PrimaryIcon:
         id: icon_left
-        icon: 'chevron-left'
+        icon: "chevron-left"
         on_press: carousel.load_previous()
 
       MDBoxLayout:
@@ -155,7 +155,7 @@
         
       PrimaryIcon:
         id: icon_right
-        icon: 'chevron-right'
+        icon: "chevron-right"
         on_press: carousel.load_next()
 
 
@@ -173,6 +173,6 @@
     text: root.title
     width: root.width
     height: root.height
-    halign: 'center'
-    font_size: '24sp'
+    halign: "center"
+    font_size: "24sp"
     color: 1, 1, 1, 1

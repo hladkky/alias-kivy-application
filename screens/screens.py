@@ -5,7 +5,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.animation import Animation
 from kivy.properties import StringProperty, NumericProperty
 from kivy.uix.carousel import Carousel
-
+from kivy.clock import Clock
+from kivy.metrics import dp
 from widgets.widgets import TeamLabel, CloseIcon, GameCard, DictionaryCarouselItem
 
 from constants.team_namings import TEAM_NAMES
@@ -21,12 +22,12 @@ class ConfigScreen(Screen):
 
 
 class TeamConfigScreen(ConfigScreen):
-    title = 'У запеклій грі зійдуться:'
-    button_text = 'До налаштувань'
-    to_screen = 'game_config'
+    title = "У запеклій грі зійдуться:"
+    button_text = "До налаштувань"
+    to_screen = "game_config"
     
     team_list = []
-    team_height = 60
+    team_height = dp(60)
     
     def on_kv_post(self, instance):
         for i in range(2):
@@ -47,11 +48,13 @@ class TeamConfigScreen(ConfigScreen):
             new_team.opacity = 0
             new_team.height = 0
             
+            print(new_team.size)
+
             self.ids.team_list.add_widget(new_team)
             animation = Animation(opacity=1,
                                   height=self.team_height,
                                   d=.3,
-                                  t='in_out_quad')
+                                  t="in_out_quad")
             animation.start(new_team)
         else:
             self.ids.team_list.add_widget(new_team)
@@ -73,7 +76,7 @@ class TeamConfigScreen(ConfigScreen):
         animation = Animation(opacity=0,
                               height=0,
                               d=.3,
-                              t='in_out_quad')
+                              t="in_out_quad")
         
         animation.bind(on_complete=lambda anim, wid: self.ids.team_list.remove_widget(wid))
         animation.start(team_to_delete)
@@ -89,13 +92,13 @@ class TeamConfigScreen(ConfigScreen):
             animation = Animation(opacity=1,
                                   height=self.team_height,
                                   d=.3,
-                                  t='in_out_quad')
+                                  t="in_out_quad")
             animation.start(self.ids.add_button_container)
         else:
             animation = Animation(opacity=0,
                                   height=0,
                                   d=.3,
-                                  t='in_out_quad')
+                                  t="in_out_quad")
             animation.start(self.ids.add_button_container)
         
     
@@ -111,22 +114,22 @@ class TeamConfigScreen(ConfigScreen):
         
 
 class GameConfigScreen(ConfigScreen):
-    title = 'Гра відбудеться у таких умовах:'
-    button_text = 'ГРАТИ'
-    to_screen = 'game_config'
+    title = "Гра відбудеться у таких умовах:"
+    button_text = "ГРАТИ"
+    to_screen = "game_config"
     dictionaries = []
     
     round_duration = NumericProperty(60)
-    selected_dictionary = StringProperty('')    
+    selected_dictionary = StringProperty("")    
     selected_dictionary_index = NumericProperty(0)
 
 
     def on_enter(self):
-        with open('./constants/dicts.json', encoding='utf-8') as f:
+        with open("./constants/dicts.json", encoding="utf-8") as f:
             dicts = json.load(f)
             
             for key, value in dicts.items():
-                self.dictionaries.append({'title': key, 'desc': value['description']})
+                self.dictionaries.append({"title": key, "desc": value["description"]})
             self.fill_dictionaries()
 
 
@@ -159,8 +162,8 @@ class GameConfigScreen(ConfigScreen):
         carousel = self.ids.dictionaries_layout.ids.carousel
         for idx, dictionary in enumerate(self.dictionaries):
             carousel.add_widget(DictionaryCarouselItem(
-                    title=dictionary['title'],
-                    description=dictionary['desc'],
+                    title=dictionary["title"],
+                    description=dictionary["desc"],
                     on_press=lambda _: self.select_dictionary(carousel)
                 )
             )
@@ -190,13 +193,13 @@ class RoundScreen(Screen):
 
     def generate_card(self, first=False):
         if first:
-            self.ids['game_layout'].add_widget(GameCard(title="Почати"))
+            self.ids["game_layout"].add_widget(GameCard(title="Почати"))
         else:
             self.start_timer()
-            self.ids['game_layout'].add_widget(GameCard(title="Карта"))
+            self.ids["game_layout"].add_widget(GameCard(title="Карта"))
         
     def remove_current_card(self, instance):
-        self.ids['game_layout'].remove_widget(instance)
+        self.ids["game_layout"].remove_widget(instance)
         self.generate_card()
         
     def start_timer(self):
@@ -204,8 +207,8 @@ class RoundScreen(Screen):
         
     def _minus_second(self, dt):
         self.time_left = str(int(self.time_left) - 1)
-        self.ids.timer.text = f'{self.time_left}'
+        self.ids.timer.text = f"{self.time_left}"
         
-        if self.time_left == '0':
+        if self.time_left == "0":
             Clock.unschedule(self.timer_event)
-            self.parent.current = 'menu'
+            self.parent.current = "menu"

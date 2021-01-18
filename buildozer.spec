@@ -4,16 +4,16 @@
 title = Alias українською
 
 # (str) Package name
-package.name = alias
+package.name = alias_uk
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.alias_ukr
+package.domain = org.alias_uk
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+#source.include_exts = py,png,jpg,kv,atlas,gif,json,ttf,log
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -25,7 +25,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_dirs = tests, bin
 
 # (list) List of exclusions using pattern matching
-#source.exclude_patterns = license,images/*/*.jpg
+#source.exclude_patterns
 
 # (str) Application versioning (method 1)
 version = 0.1
@@ -49,7 +49,7 @@ requirements = python3,kivy
 presplash.filename = %(source.dir)s/assets/gifs/loading.gif
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/assets/imgs/logo.png
+icon.filename = %(source.dir)s/assets/icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
