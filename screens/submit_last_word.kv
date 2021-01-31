@@ -1,0 +1,23 @@
+<SubmitLastWordScreen>:
+  name: "submit_last_word"
+
+  ScreenTitle:
+    title: root.word
+
+  BoldFontLabel:
+    size_hint: .9, .1
+    text: "Відгадали"
+    halign: "center"
+    pos_hint: {"center_x": .5, "top": .9}
+
+  CustomScroll:
+    do_scroll: False, True
+    size_hint: .9, .7
+    pos_hint: {"center_x": .5, "top": .8}
+    bar_color: PINK_COLOR
+    MDList:
+      id: team_list
+    
+  ScreenBottomButton:
+    id: screen_bottom_button
+    button_text: "Ніхто"

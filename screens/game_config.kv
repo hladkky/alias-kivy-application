@@ -1,0 +1,194 @@
+<GameConfigScreen>:
+  name: "game_config"
+
+  CustomScroll:
+    do_scroll: False, True
+    size_hint: .9, .75
+    pos_hint: {"center_x": .5, "top": .9}
+    bar_color: PINK_COLOR
+
+    MDStackLayout:
+      size_hint: 1, None
+      adaptive_height: True
+      pos_hint: {"center_x": .5, "center_y": .5}
+
+      MDStackLayout:
+        id: dictionaries_label
+        size_hint: .7, None
+        height: "80dp"
+
+        FontLabel:
+          text: "Словник:"
+          size_hint_y: .55
+          text_size: self.size
+          valign: "bottom"
+
+        FontLabel:
+          text: root.selected_dictionary if root.selected_dictionary else "Не вибраний"
+          halign: "left"
+          font_size: "14sp"
+          size_hint_y: .45
+          text_size: self.size
+          valign: "top"
+
+      AnchorLayout:
+        size_hint: .3, None
+        height: "80dp"
+        center_x: .5
+        center_y: .5
+
+        MDIconButton:
+          id: dictionaries_button
+          icon: "chevron-down"
+          ripple_alpha: .2
+          user_font_size: "34sp"
+          size_hint: None, None
+          size: "50dp", "50dp"
+          theme_text_color: "Custom"
+          text_color: WHITE_COLOR
+          selected_color: WHITE_COLOR
+          unselected_color: WHITE_COLOR
+          on_press: root.show_dictionaries(self)
+
+      MDFloatLayout:
+        size_hint: 1, None
+        height: "0dp"
+        padding: "-100dp"
+
+        DropDownLayout:
+          size_hint: 1, 1
+          pos_hint: {"top": 1}
+          width: root.width
+          id: dictionaries_layout
+    
+      MDStackLayout:
+        size_hint: 1, None
+        adaptive_height: True
+
+        FontLabel:
+          size_hint: .7, None
+          height: "80dp"
+          text: "Кількість слів для перемоги:"
+        
+        MDBoxLayout:
+          size_hint: .3, None
+          height: "80sp"
+
+          FontLabel:
+            id: points_to_win_label
+            size_hint_x: .6
+            halign: "center"
+            font_size: "30sp"
+            text: str(int(points_to_win_slider.value))
+
+        ConfigSlider:
+          id: points_to_win_slider
+          size_hint: 1, None
+          height: "10dp"
+          hint: False
+
+      MDStackLayout:
+        size_hint: .7, None
+        height: "80dp"
+
+        FontLabel:
+          text: "Тривалість раунду:"
+          size_hint_y: .55
+          text_size: self.size
+          valign: "bottom"
+
+        FontLabel:
+          text: "у секундах"
+          halign: "left"
+          font_size: "14sp"
+          size_hint_y: .45
+          text_size: self.size
+          valign: "top"
+      
+      MDBoxLayout:
+        size_hint: .3, None
+        height: "80sp"
+
+        TextButton:
+          text: "-"
+          size_hint: .2, .3
+          font_size: "30sp"
+          on_press: root.change_round_duration(-10)
+
+        FontLabel:
+          size_hint_x: .6
+          halign: "center"
+          text: str(root.round_duration)
+          font_size: "30sp"
+        
+        TextButton:
+          text: "+"
+          size_hint: .2, .3
+          font_size: "30sp"
+          on_press: root.change_round_duration(+10)
+
+      MDStackLayout:
+        size_hint: .7, None
+        height: "80sp"
+
+        FontLabel:
+          text: "Штраф за пропуск:"
+          size_hint_y: .55
+          text_size: self.size
+          valign: "bottom"
+
+        FontLabel:
+          text: "мінус бал за кожне пропущене слово"
+          halign: "left"
+          font_size: "14sp"
+          size_hint_y: .45
+          text_size: self.size
+          valign: "top"
+
+      AnchorLayout:
+        size_hint: .3, None
+        height: "80dp"
+        center_x: .5
+        center_y: .5
+
+        MDCheckbox:
+          id: penalty_checkbox
+          size_hint: None, None
+          size: "68dp", "68dp"
+          active: True
+          scale: 2
+          selected_color: WHITE_COLOR
+          unselected_color: WHITE_COLOR
+      
+      MDStackLayout:
+        size_hint: .7, None
+        height: "80dp"
+
+        FontLabel:
+          text: "Останнє слово:"
+          size_hint_y: .55
+          text_size: self.size
+          valign: "bottom"
+
+        FontLabel:
+          text: "по завершенню раунду кожна команда може відгадати слово"
+          halign: "left"
+          font_size: "14sp"
+          size_hint_y: .45
+          text_size: self.size
+          valign: "top"
+
+      AnchorLayout:
+        size_hint: .3, None
+        height: "80dp"
+        center_x: .5
+        center_y: .5
+
+        MDCheckbox:
+          id: last_word_checkbox
+          size_hint: None, None
+          size: "68dp", "68dp"
+          active: True
+          scale: 2
+          selected_color: WHITE_COLOR
+          unselected_color: WHITE_COLOR

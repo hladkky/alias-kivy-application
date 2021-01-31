@@ -1,0 +1,69 @@
+#:import win kivy.core.window
+
+<RoundScreen>:
+  name: "round"
+
+  FitImage:
+    source: "assets/imgs/back.png"
+
+  AnchorLayout:
+    id: game_layout
+    size_hint: 1, .8
+    anchor_x: "center"
+    anchor_y: "center"
+    pos_hint: {"center_x": .5, "center_y": .5}
+
+  MDFloatLayout:
+    id: on_start_round
+    size_hint: 1, 0.8
+    pos_hint: {"center_x": .5, "center_y": .5}
+
+    Image:
+      size: self.parent.size
+      pos: self.parent.pos
+      source: "assets/imgs/round_start.png"
+      allow_stretch: True
+      keep_ratio: False
+
+    BoldFontLabel:
+      size_hint: 1, .1
+      pos_hint: {"center_x": .5, "top": .9}
+      text: "Відгадано"
+      halign: "center"
+
+    BoldFontLabel:
+      size_hint: 1, .1
+      pos_hint: {"center_x": .5, "top": .2}
+      text: "Не відгадано"
+      halign: "center"
+
+  MDFloatLayout:
+    size_hint: 1, .1
+    pos_hint: {"center_x": .5, "center_y": 0.95}
+    md_bg_color: DARK_PINK_COLOR
+    
+    TimerBar:
+      id: timer_bar_top
+      size_hint: None, None
+      width: self.parent.width
+      pos_hint: {"center_x": .5, "y": 0}
+    
+    FontLabel:
+      id: timer
+      font_size: "24sp"
+      size_hint: 1, .1
+      pos_hint: {"center_x": 0.5, "center_y": 0.5}
+      halign: "center"
+      text: str(root.time_left)
+
+  MDFloatLayout:
+    size_hint: 1, .1
+    pos_hint: {"center_x": .5, "center_y": 0.05}
+    md_bg_color: DARK_PINK_COLOR
+
+    TimerBar:
+      id: timer_bar_bottom
+      size_hint: None, None
+      width: self.parent.width
+      pos_hint: {"center_x": .5, "y": 1}
+

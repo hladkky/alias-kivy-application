@@ -1,0 +1,50 @@
+<SubmitRoundScreen>:
+  name: "submit_round"
+
+  ScreenTitle:
+    title: "Підсумки"
+
+  CustomScroll:
+    do_scroll: False, True
+    size_hint: .9, .55
+    pos_hint: {"center_x": .5, "top": .9}
+    bar_color: PINK_COLOR
+
+    MDList:
+      id: words_to_submit
+
+  MDBoxLayout:
+    size_hint: .9, .2
+    orientation: "vertical"
+    pos_hint: {"center_x": .5, "top": .35}
+
+    MDSeparator:
+      size_hint_x: 1
+      pos_hint: {"top": 1, "center_x": .5}
+      height: "2dp"
+      opacity: 1
+      color: PINK_COLOR
+
+    MDBoxLayout:
+      size_hint: 1, .5
+      FontLabel:
+        size_hint: .8, 1
+        text: root.main_team
+      BoldFontLabel:
+        size_hint: .2, 1
+        text: ('+' if root.main_team_points > 0 else '') + str(root.main_team_points)
+        halign: "center"
+
+    MDBoxLayout:
+      size_hint: 1, .5
+      FontLabel:
+        size_hint: .8, 1
+        text: root.second_team
+      BoldFontLabel:
+        size_hint: .2, 1
+        text: '+' + str(root.second_team_points) if root.second_team_points else ''
+        halign: "center"
+
+  ScreenBottomButton:
+    id: screen_bottom_button
+    button_text: "Закінчити раунд"

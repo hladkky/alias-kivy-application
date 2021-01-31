@@ -1,18 +1,25 @@
+#:import win kivy.core.window
+
 <FontLabel>:
+  text: ''
   font_name: "./fonts/GothamPro-Regular"
   font_size: "20sp"
-  color: WHITE_COLOR
+  theme_text_color: "Custom"
+  text_color: WHITE_COLOR
 
 
 <BoldFontLabel>:
+  text: ''
   font_name: "./fonts/GothamPro-Bold"
   font_size: "20sp"
-  color: WHITE_COLOR
+  theme_text_color: "Custom"
+  text_color: WHITE_COLOR
 
 
 <TextButton>:
   font_name: BOLD_FONT
   font_size: "20sp"
+  theme_text_color: "Custom"
   text_color: WHITE_COLOR
   pos_hint: {"center_x": .5, "center_y": .5}
 
@@ -37,7 +44,6 @@
 <TeamLabel>:
   size_hint_y: None
   height: root.height
-  md_bg_color: 0, 0, 0, 0
   elevation: 0
   padding: "20dp", "15dp", "0dp", "10dp"
   
@@ -52,10 +58,65 @@
   
   BoldFontLabel:
     text: root.text
-  
+    size_hint: .85, 1
+
   MDFloatLayout:
-    size_hint: .2, 1
-    id: close_icon_button_container
+    size_hint: .15, 1
+    
+    BoldFontLabel:
+      id: score_label
+      pos: self.parent.pos
+      halign: "center"
+      text: ''
+    
+    MDFloatLayout:
+      pos: self.parent.pos
+      id: close_icon_button_container
+
+
+<ScreenTitle@MDFloatLayout>:
+  title: ''
+  size_hint: 1, 0.1
+  pos_hint: {"top": 1, "center_x": .5}
+    
+  BoldFontLabel:
+    text: root.title
+    font_size: "24sp"
+    halign: "center"
+    pos_hint: {"center_x": .5, "center_y": .5}
+  
+  MDSeparator:
+    size_hint_x: .9
+    pos_hint: {"top": 0, "center_x": .5}
+    height: "2dp"
+    opacity: 1
+    color: PINK_COLOR
+
+
+<ScreenBottomButton@MDFloatLayout>:
+  button_text: ''
+  size_hint: 1, 0.1
+  pos_hint: {"top": .15, "center_x": .5}
+  
+  MDFlatButton:
+    id: button
+    size_hint: 1, 1
+    pos_hint: {"top": 1, "center_x": .5}
+    ripple_color: DARK_PINK_COLOR
+    
+    BoldFontLabel:
+      text: root.button_text
+      font_size: "24sp"
+      halign: "center"
+      size_hint: 1, 1
+      pos_hint: {"top": 1, "center_x": .5}
+  
+  MDSeparator:
+    size_hint_x: .9
+    pos_hint: {"top": 1, "center_x": .5}
+    height: "3dp"
+    opacity: 1
+    color: PINK_COLOR
 
 
 <CloseIcon>:
@@ -64,6 +125,7 @@
   theme_text_color: "Custom"
   text_color: 1, 1, 1, 1
   size_hint: None, None
+  size: "48dp", "48dp"
   pos_hint: {"center_x": .5, "center_y": .6}
   canvas.before:
     PushMatrix
@@ -104,7 +166,7 @@
       halign: "center"
       valign: "bottom"
       size_hint_y: .6
-      font_size: 30
+      font_size: "13sp"
 
     FontLabel:
       text: root.description
@@ -116,18 +178,19 @@
 
 
 <DropDownLayout>:
-  FitImage:
+  Image:
     pos: root.pos
     height: root.height
     width: root.width
-    source: "./assets/imgs/dropdownback.png"
+    source: "./assets/imgs/dropdown.png"
+    allow_stretch: True
+    keep_ratio: False
 
   Carousel:
     id: carousel
     scroll_distance: "0dp"
     md_bg_color: RED_COLOR
-    size_hint: None, 1
-    width: root.width
+    size_hint: 1, 1
     pos: root.pos
     loop: True
 
@@ -137,7 +200,7 @@
 
     MDBoxLayout:
       pos: root.pos
-      padding: "20dp"
+      padding: "5dp", "20dp"
       orientation: "horizontal"
       id: drop_down_box
       opacity: 0
@@ -159,20 +222,130 @@
         on_press: carousel.load_next()
 
 
-<GameCard>:
-  size_hint: .5, .25
+<ConfigSlider@MDSlider>:
+  id: slider
+  min: 10
+  max: 120
+  value: 50
+  step: 5
+  thumb_color_down: PINK_COLOR
 
+
+<CustomScroll@ScrollView>:
+  bar_color: 0,0,0,0
+  bar_inactive_color: 0,0,0,0
+
+
+<GameCard>:
+  do_rotation: False
+  do_scale: False
+  size_hint: None, None
+  size: card_layout.size
+
+  MDFloatLayout:
+    id: card_layout
+    size_hint: None, None
+
+    width: win.Window.width * .6
+    height: self.width / image.image_ratio
+
+    Image:
+      id: image
+      size_hint: 1, 1
+      source: "./assets/imgs/cardfront.png"
+    
+    FontLabel:
+      padding: ("15dp", "15dp")
+      text: root.title
+      halign: "center"
+
+
+<TeamLabelSubmitLastWord>:
+  size_hint: 1, None
+  height: "50dp"
+  pos_hint: {"center_x": .5}
+
+  FontLabel:
+    id: guessed_team
+    text: root.team
+    size_hint: .8, 1
+
+  AnchorLayout:
+    size_hint: .2, 1
+    center_x: .5
+    center_y: .5
+
+    MDCheckbox:
+      id: check_word
+      group: 'last_word_guessed'
+      size_hint: None, None
+      size: "40dp", "40dp"
+      selected_color: WHITE_COLOR
+      unselected_color: WHITE_COLOR
+
+
+<WordLabel>:
+  size_hint: 1, None
+  height: "40dp"
+  pos_hint: {"center_x": .5}
+
+  FontLabel:
+    text: root.word
+    size_hint: .8, 1
+
+  AnchorLayout:
+    size_hint: .2, 1
+    center_x: .5
+    center_y: .5
+
+    MDCheckbox:
+      id: check_word
+      size_hint: None, None
+      size: "40dp", "40dp"
+      active: root.checked
+      selected_color: WHITE_COLOR
+      unselected_color: WHITE_COLOR
+
+
+<WordLabelWithTeam>:
+  size_hint: 1, None  
+  height: "70dp"
+  pos_hint: {"center_x": .5}
+
+  MDBoxLayout:
+    orientation: "vertical"
+    size_hint: .8, 1
+    
+    FontLabel:
+      text: root.word
+      text_size: self.size
+      valign: "bottom"
+    
+    FontLabel:
+      text: root.team
+      text_size: self.size
+      font_size: "16sp"
+      valign: "top"
+
+  AnchorLayout:
+    size_hint: .2, 1
+    center_x: .5
+    center_y: .5
+
+    PrimaryIcon:
+      id: change_guessed_team
+      user_font_size: "32sp"
+      icon: "swap-horizontal-bold"
+      pos_hint: {"center_x": .5, "center_y": .5}
+      theme_text_color: "Custom"
+      text_color: WHITE_COLOR
+
+
+<TimerBar@MDFloatLayout>:
   canvas.before:
     Color:
-      rgba: .4, .4, .5, 1
+      rgba: PINK_COLOR
     RoundedRectangle:
-      size: self.size
-      radius: [20, 20, 20, 20]
-  
-  MDLabel:
-    text: root.title
-    width: root.width
-    height: root.height
-    halign: "center"
-    font_size: "24sp"
-    color: 1, 1, 1, 1
+      size: (self.width, 4)
+      pos: self.pos
+      radius: [5, 5, 5, 5]
