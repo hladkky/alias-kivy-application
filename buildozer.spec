@@ -13,7 +13,7 @@ package.domain = org.alias_uk
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,gif,json,ttf
+source.include_exts = py,png,jpg,kv,atlas,gif,json,ttf,wav
 
 # (list) List of inclusions using pattern matching
 source.include_patterns = assets/*,constants/*,fonts/*,screens/*,widgets/*
@@ -28,7 +28,7 @@ source.exclude_dirs = .git, .vscode, tests, bin
 source.exclude_patterns = __pycache__/*
 
 # (str) Application versioning (method 1)
-version = 0.1.2
+version = 0.1.3
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
