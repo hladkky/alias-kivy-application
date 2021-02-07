@@ -1,4 +1,5 @@
 #:import win kivy.core.window
+#:import ew kivy.uix.effectwidget
 
 <FontLabel>:
   text: ''
@@ -121,11 +122,8 @@
 
 <CloseIcon>:
   icon: "plus-thick"
-  user_font_size: "32sp"
   theme_text_color: "Custom"
-  text_color: 1, 1, 1, 1
-  size_hint: None, None
-  size: "48dp", "48dp"
+  text_color: WHITE_COLOR
   pos_hint: {"center_x": .5, "center_y": .6}
   canvas.before:
     PushMatrix
@@ -138,7 +136,6 @@
 
 <PrimaryIcon@MDIconButton>:
   size_hint: None, None
-  user_font_size: "42sp"
   width: "40dp"
   height: "40dp"
   theme_text_color: "Custom"
@@ -147,33 +144,29 @@
 
 
 <DictionaryCarouselItem>:
-  font_name: BOLD_FONT
-  theme_text_color: "Custom"
-  font_size: "30sp"
-  ripple_color: DARK_PINK_COLOR
-  ripple_alpha: 0
   size_hint: .7, .6
   pos_hint: {"center_x": .5, "center_y": .5}
+  ripple_duration_in_fast: 0.1
 
-  MDStackLayout:
+  MDBoxLayout:
     size_hint: 1, 1
+    orientation: "vertical"
 
     BoldFontLabel:
       id: dict_name
-      text: root.title
-      color: PINK_COLOR
-      text_size: self.size
+      size_hint: 1, .6
       halign: "center"
       valign: "bottom"
-      size_hint_y: .6
-      font_size: "13sp"
+      text: root.title
+      text_size: None, self.height
+      color: PINK_COLOR
+      font_size: "24sp"
 
     FontLabel:
       text: root.description
-      font_size: "12sp"
-      text_size: self.size
+      size_hint: 1, .4
       halign: "center"
-      valign: "center"
+      font_size: "12sp"
       size_hint_y: .4
 
 
@@ -188,39 +181,11 @@
 
   Carousel:
     id: carousel
-    scroll_distance: "0dp"
-    md_bg_color: RED_COLOR
     size_hint: 1, 1
+    scroll_distance: "0dp"
     pos: root.pos
     loop: True
-
-  MDFloatLayout:
-    size_hint: 1, 1
-    pos: root.pos
-
-    MDBoxLayout:
-      pos: root.pos
-      padding: "5dp", "20dp"
-      orientation: "horizontal"
-      id: drop_down_box
-      opacity: 0
-      rows: 1
-      size_hint: 1, 1
-      width: root.width
-      
-      PrimaryIcon:
-        id: icon_left
-        icon: "chevron-left"
-        on_press: carousel.load_previous()
-
-      MDBoxLayout:
-        size_hint: 1, None
-        
-      PrimaryIcon:
-        id: icon_right
-        icon: "chevron-right"
-        on_press: carousel.load_next()
-
+  
 
 <ConfigSlider@MDSlider>:
   id: slider
@@ -228,7 +193,7 @@
   max: 120
   value: 50
   step: 5
-  thumb_color_down: PINK_COLOR
+  color: PINK_COLOR
 
 
 <CustomScroll@ScrollView>:
@@ -241,13 +206,14 @@
   do_scale: False
   size_hint: None, None
   size: card_layout.size
+  pos: self.pos
+  pos_hint: {"center_x": .5}
 
   MDFloatLayout:
     id: card_layout
-    size_hint: None, None
-
-    width: win.Window.width * .6
-    height: self.width / image.image_ratio
+    size_hint: 1, 1
+    width: win.Window.width * .65
+    height: self.width
 
     Image:
       id: image

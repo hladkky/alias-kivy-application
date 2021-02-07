@@ -1,0 +1,51 @@
+<ColoredLabel@Label>:
+    font_size: '48sp'
+    color: (.6, .6, .6, 1)
+    canvas.before:
+        Color:
+            rgb: (.9, .9, .9)
+        Rectangle:
+            pos: self.x + sp(2), self.y + sp(2)
+            size: self.width - sp(4), self.height - sp(4)
+
+<TestScreen>:
+    name: 'test'
+    size_hint: 1, 1
+
+    BoxLayout:
+        size_hint: 1, .1
+        pos: self.pos
+        pos_hint: {"top": 1}
+
+        ToggleButton:
+            text: 'Loop'
+            id: btnloop
+
+        Label:
+            size_hint_x: None
+            width: self.height
+            text: '{}'.format(carousel.index)
+
+        Button:
+            size_hint_x: None
+            width: self.height
+            text: 'Prev'
+            on_release: carousel.load_previous()
+
+        Button:
+            size_hint_x: None
+            width: self.height
+            text: 'Next'
+            on_release: carousel.load_next()
+
+    Carousel:
+        id: carousel
+        loop: btnloop.state == 'down'
+        size_hint: 1, 1
+        pos_hint: {"top": .9}
+
+        ColoredLabel:
+            text: 'Slide 0'
+
+        ColoredLabel:
+            text: 'Slide 1'

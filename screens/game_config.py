@@ -25,14 +25,12 @@ class GameConfigScreen(ConfigScreen):
     def on_kv_post(self, _):
         self.ids.screen_bottom_button.ids.button.bind(
             on_press=self.start_main_game)
-
-    def on_enter(self):
         with open("./constants/dicts.json", encoding="utf-8") as f:
             dicts = json.load(f)
             for key, value in dicts.items():
                 self.dictionaries.append(
                     {"title": key, "name": value["name"], "desc": value["description"]})
-            self.fill_dictionaries()
+        self.fill_dictionaries()
 
     def change_round_duration(self, delta):
         if self.round_duration + delta > 0 and self.round_duration + delta <= 180:
@@ -44,15 +42,14 @@ class GameConfigScreen(ConfigScreen):
             self.selected_dictionary_index = carousel.index
             self.hide_dictionaries()
 
-    def show_dictionaries(self, button):
+    def show_dictionaries(self, _):
         dict_layout = self.ids.dictionaries_layout
         dict_label = self.ids.dictionaries_label
 
         dict_layout.y = dict_label.y - dict_label.height - 20
 
-        button.opacity = 0
+        self.animate_carousel_buttons("open")
         Animation(height=dp(100), d=.3).start(dict_layout.parent)
-        Animation(opacity=1, d=.3).start(dict_layout.ids.drop_down_box)
 
     def fill_dictionaries(self):
         carousel = self.ids.dictionaries_layout.ids.carousel
@@ -65,12 +62,26 @@ class GameConfigScreen(ConfigScreen):
                 )
             )
 
+    def animate_carousel_buttons(self, mode="close"):
+        if mode == "open":
+            dictionary_open_button_anim = Animation(opacity=0, d=.3)
+            slide_button_anim = Animation(opacity=1, d=.3)
+            self.ids.dictionaries_open.disabled = True
+        else:
+            dictionary_open_button_anim = Animation(opacity=1, d=.3)
+            slide_button_anim = Animation(opacity=0, d=.3)
+            self.ids.carousel_right.disabled = True
+            self.ids.carousel_left.disabled = True
+
+        dictionary_open_button_anim.start(self.ids.dictionaries_open)
+        slide_button_anim.start(self.ids.carousel_right)
+        slide_button_anim.start(self.ids.carousel_left)
+
     def hide_dictionaries(self):
-        self.ids.dictionaries_button.opacity = 1
+        self.animate_carousel_buttons()
         dict_layout = self.ids.dictionaries_layout
 
         Animation(height=0, d=.3).start(dict_layout.parent)
-        Animation(opacity=0, d=.3).start(dict_layout.ids.drop_down_box)
 
     def start_main_game(self, _):
         if self.selected_dictionary_index is not None:

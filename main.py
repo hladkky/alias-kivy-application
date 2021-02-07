@@ -1,8 +1,11 @@
 import json
 from random import shuffle
 
+from kivy.utils import platform
 from kivy.lang.builder import Builder
+from kivy.loader import Loader
 from kivy.core.window import Window
+from kivy.config import Config
 from kivy.storage.jsonstore import JsonStore
 from kivy.uix.screenmanager import ScreenManagerException
 
@@ -20,6 +23,8 @@ class AliasApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.sm = Builder.load_file("main.kv")
+
+        print(self.sm.screens)
         return self.sm
 
     def create_main_game(self, round_duration, selected_dictionary, teams,
@@ -47,17 +52,6 @@ class AliasApp(MDApp):
     def delete_current_game(self):
         pass
 
-    def on_pause(self):
-        return True
-
-    def on_stop(self):
-        try:
-            main_game = self.sm.get_screen("main_game")
-            print(main_game.__dict__)
-        except ScreenManagerException:
-            print("no main game")
-        # self.store.delete('active_game')
-
     def on_start(self):
         try:
             self.store.get('active_game')
@@ -78,11 +72,32 @@ class AliasApp(MDApp):
             with open("./constants/words.json", "w", encoding="utf-8") as f:
                 json.dump(dicts, f)
             self.store.put('dicts_idxs', **idxs)
-        
+
         self.sm.screens[0].continue_button_active = bool(self.active_game)
+        print('start')
+
+    def on_pause(self):
+        print('pause')
+        return True
+
+    def on_stop(self):
+        print('stop')
+        try:
+            main_game = self.sm.get_screen("main_game")
+            print(main_game.__dict__)
+        except ScreenManagerException:
+            print("no main game")
+        # self.store.delete('active_game')
 
 
-Window.size = (330, 600)
-app = AliasApp()
+Loader.num_workers = 4
+Loader.loading_image = './assets/imgs/main.png'
+
+Config.set('kivy', 'exit_on_escape', '0')  # To avoid app shutdown by pressing 'return' on phone
+
+print(platform)
+if platform == 'win':
+    Window.size = (330, 600)
+
 if __name__ == "__main__":
-    app.run()
+    AliasApp().run()

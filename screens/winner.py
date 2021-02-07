@@ -20,4 +20,5 @@ class WinnerScreen(ConfigScreen):
 
     def end_main_game(self, _):
         App.get_running_app().delete_current_game()
-        self.manager.switch_to("menu")
+        menu_screen = self.manager.get_screen("menu")
+        self.manager.switch_to(menu_screen)

@@ -31,35 +31,43 @@
           text_size: self.size
           valign: "top"
 
-      AnchorLayout:
+      MDFloatLayout:
         size_hint: .3, None
         height: "80dp"
         center_x: .5
         center_y: .5
 
-        MDIconButton:
-          id: dictionaries_button
+        PrimaryIcon:
+          id: dictionaries_open
           icon: "chevron-down"
-          ripple_alpha: .2
-          user_font_size: "34sp"
-          size_hint: None, None
-          size: "50dp", "50dp"
-          theme_text_color: "Custom"
-          text_color: WHITE_COLOR
-          selected_color: WHITE_COLOR
-          unselected_color: WHITE_COLOR
           on_press: root.show_dictionaries(self)
+          ripple_alpha: 0
 
-      MDFloatLayout:
+        PrimaryIcon:
+          id: carousel_left
+          opacity: 0
+          disabled: True
+          pos_hint: {"x": 0, "center_y": .5}
+          icon: "chevron-left"
+          on_press: dictionaries_layout.ids.carousel.load_previous()
+
+        PrimaryIcon:
+          id: carousel_right
+          opacity: 0
+          disabled: True
+          pos_hint: {"right": 1, "center_y": .5}
+          icon: "chevron-right"
+          on_press: dictionaries_layout.ids.carousel.load_next()
+
+      FloatLayout:
         size_hint: 1, None
         height: "0dp"
-        padding: "-100dp"
 
         DropDownLayout:
+          id: dictionaries_layout
           size_hint: 1, 1
           pos_hint: {"top": 1}
           width: root.width
-          id: dictionaries_layout
     
       MDStackLayout:
         size_hint: 1, None
@@ -84,7 +92,7 @@
         ConfigSlider:
           id: points_to_win_slider
           size_hint: 1, None
-          height: "10dp"
+          height: "30dp"
           hint: False
 
       MDStackLayout:
@@ -113,6 +121,7 @@
           text: "-"
           size_hint: .2, .3
           font_size: "30sp"
+          ripple_alpha: 0
           on_press: root.change_round_duration(-10)
 
         FontLabel:
@@ -125,6 +134,7 @@
           text: "+"
           size_hint: .2, .3
           font_size: "30sp"
+          ripple_alpha: 0
           on_press: root.change_round_duration(+10)
 
       MDStackLayout:

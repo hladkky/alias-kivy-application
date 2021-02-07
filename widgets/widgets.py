@@ -8,6 +8,8 @@ from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.button import MDIconButton, MDFlatButton
 from kivymd.uix.behaviors import RectangularRippleBehavior
 
+from audioplayer import AudioPlayer
+
 
 class FontLabel(MDLabel):
     pass
@@ -46,22 +48,27 @@ class DictionaryCarouselItem(OutlineButton):
 class GameCard(Scatter):
     start_position = None
     title = StringProperty()
+    audio_player = AudioPlayer()
+    is_first = BooleanProperty(False)
 
     def on_touch_down(self, touch):
         super().on_touch_down(touch)
         self.start_position = self.pos
 
-    def on_touch_move(self, touch):
-        super().on_touch_move(touch)
-
     def on_touch_up(self, touch):
         super().on_touch_up(touch)
 
         try:
-            if (self.pos[1] - self.start_position[1]) / self.size[1] > 1:
+            bias = (self.pos[1] - self.start_position[1]) / self.size[1]
+            print(bias)
+            if bias > .5:
                 self.card_disappear_animation(True)
-            elif (self.pos[1] - self.start_position[1]) / self.size[1] < -1:
+                if not self.is_first:
+                    self.audio_player.play_sound('plus')
+            elif bias < -.5:
                 self.card_disappear_animation(False)
+                if not self.is_first:
+                    self.audio_player.play_sound('minus')
             else:
                 Animation(
                     pos=self.start_position,

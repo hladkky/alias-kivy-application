@@ -1,9 +1,14 @@
 __pycache__/
 .buildozer/
 .vscode/
+
 .pylintrc
 
-bin/
+# compiled apk
+_bin/
+
+# temporary
+.upd/
 
 logs/
 

@@ -16,6 +16,7 @@ class MainGameScreen(BackgroundScreen):
     round_duration = NumericProperty(0)
     current_round = NumericProperty(1)
     current_turn = NumericProperty(0)
+    points_to_win = NumericProperty(0)
 
     def __init__(self, round_duration, teams, dictionary_name, dict_idx,
                  penalty, last_word, points_to_win, score, current_round,
@@ -30,6 +31,7 @@ class MainGameScreen(BackgroundScreen):
         self.score = score
         self.current_turn = current_turn
         self.current_round = current_round
+        self.test = 50
 
         with open("./constants/words.json", encoding="utf-8") as f:
             dicts = json.load(f)
@@ -79,12 +81,16 @@ class MainGameScreen(BackgroundScreen):
 
     def change_turn(self):
         self.current_turn += 1
-        self.ids.current_turn.text = self.get_current_team()
-
-        if self.current_turn == len(self.teams):
+        
+        try:
+            current_team_turn = self.get_current_team()
+        except IndexError:
             self.check_end_of_game()
             self.current_turn = 0
             self.current_round += 1
+            current_team_turn = self.get_current_team()
+        
+        self.ids.current_turn.text = current_team_turn
 
     def check_end_of_game(self):
         if self.points_to_win <= max(self.score):

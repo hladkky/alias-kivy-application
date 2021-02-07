@@ -2,7 +2,7 @@
   name: "menu"
 
   FitImage:
-    source: "assets/imgs/mainbackground.png"
+    source: "assets/imgs/main.png"
 
   MDBoxLayout:
     adaptive_height: True
@@ -29,3 +29,5 @@
     OutlineButton:
       text: "ПРО ГРУ"
       size_hint: 1, None
+      on_press: 
+        root.manager.current = "test"

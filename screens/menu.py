@@ -4,6 +4,3 @@ from kivy.properties import BooleanProperty
 
 class MenuScreen(Screen):
     continue_button_active = BooleanProperty(False)
-
-    def on_enter(self):
-        pass

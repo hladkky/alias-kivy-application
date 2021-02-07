@@ -29,9 +29,11 @@ class TeamConfigScreen(ConfigScreen):
         self.manager.current = "game_config"
 
     def on_enter(self):
-        for _ in range(2):
-            self.add_team()
-        self.toggle_close_icons()
+        if not self.team_list:
+            for _ in range(2):
+                self.add_team()
+        
+        self.toggle_close_icons(show=False if len(self.team_list) == 2 else True)
 
         self.next_button = self.to_next_screen
 

@@ -31,7 +31,7 @@ class RoundScreen(Screen):
 
     def generate_card(self, first=False):
         if first:
-            self.ids.game_layout.add_widget(GameCard(title="Почати"))
+            self.ids.game_layout.add_widget(GameCard(title="Почати", is_first=True))
         else:
             if not self.timer_event:
                 self.start_timer()
