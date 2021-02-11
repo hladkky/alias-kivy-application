@@ -6,4 +6,3 @@ class BackgroundScreen(Screen):
     Background screen.
     Used as template with background image.
     '''
-    pass

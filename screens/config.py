@@ -16,7 +16,6 @@ class ConfigScreen(BackgroundScreen):
     ----------
     title: StringProperty
         title of the screen
-
     button_text: StringProperty
         text of the screen button
     '''
