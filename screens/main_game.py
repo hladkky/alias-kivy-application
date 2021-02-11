@@ -4,6 +4,7 @@ Main game screen
 
 import json
 
+from kivy.app import App
 from kivy.properties import NumericProperty
 from kivy.metrics import dp
 
@@ -245,6 +246,9 @@ class MainGameScreen(BackgroundScreen):
                 self.score.index(max(self.score))
             ]
         )
+
+        # save dictionary index to the app store
+        App.get_running_app().save_dict_idx(self.dictionary_name, self.dict_idx)
 
         # clear some configuration parameters
         self.teams.clear()

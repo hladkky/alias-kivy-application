@@ -34,15 +34,16 @@ class WinnerScreen(ConfigScreen):
     def on_kv_post(self, _):
         '''
         Kivy method overriden to bind the function to the screen button
+        and delete current game
         '''
         self.ids.screen_bottom_button.ids.button.bind(
             on_press=self.end_main_game
         )
+        App.get_running_app().delete_current_game()
 
     def end_main_game(self, _):
         '''
         End current game and go to menu screen
         '''
-        App.get_running_app().delete_current_game()
         menu_screen = self.manager.get_screen("menu")
         self.manager.switch_to(menu_screen)
