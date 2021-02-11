@@ -15,17 +15,21 @@
       id: continue_button
       text: "ПРОДОВЖИТИ"
       size_hint: 1, None
-      opacity: 1 if app.active_game else 0
-      disabled: False if app.active_game else True
+      opacity: 1 if (app.active_game and app.buttons_ready_to_use) else 0
+      disabled: False if (app.active_game and app.buttons_ready_to_use) else True
       on_press: 
         app.load_main_game()
 
     OutlineButton:
       text: "ГРАТИ"
       size_hint: 1, None
+      opacity: 1 if app.buttons_ready_to_use else 0
+      disabled: False if app.buttons_ready_to_use else True
       on_press: 
         app.to_game_config()
 
     OutlineButton:
       text: "ПРО ГРУ"
       size_hint: 1, None
+      opacity: 1 if app.buttons_ready_to_use else 0
+      disabled: False if app.buttons_ready_to_use else True

@@ -35,6 +35,8 @@ class RoundScreen(Screen):
         list of words shown during the round and if it was guessed
     main_game : MainGameScreen
         instance of active `MainGameScreen`
+    background_image_widget : FitImage
+        widget with background image
 
     Methods
     -------
@@ -60,6 +62,7 @@ class RoundScreen(Screen):
     time_left = NumericProperty()
     audio_player = AudioPlayer()
     words = []
+    background_image_widget = None
 
     def __init__(self, main_game, **kwargs):
         super().__init__(**kwargs)
@@ -70,9 +73,18 @@ class RoundScreen(Screen):
     def on_kv_post(self, _):
         '''
         Kivy method overriden to generate first default card on the screen
+        and load background image
         '''
-        self.add_widget(Cache.get('images', 'round_background'), 20)
+        self.background_image_widget = Cache.get('images', 'round_background')
+        self.add_widget(self.background_image_widget, 20)
+
         self.generate_card(first=True)
+
+    def on_leave(self, *args):
+        '''
+        Kivy method overriden to remove FitImage when leave the screen
+        '''
+        self.remove_widget(self.background_image_widget)
 
     def generate_card(self, first=False):
         '''

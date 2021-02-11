@@ -21,6 +21,7 @@ from kivy.config import Config
 from kivy.storage.jsonstore import JsonStore
 from kivy.properties import BooleanProperty
 from kivy.cache import Cache
+from kivy.clock import Clock
 
 from kivymd.app import MDApp
 from kivymd.utils.fitimage import FitImage
@@ -44,6 +45,8 @@ class AliasApp(MDApp):
         Indicator if active game exists
     dict_idxs : dict
         dict with dictionaries names and indexes of current word in them
+    buttons_ready_to_use : BooleanProperty
+        buttons enabled or not on the menu screen
 
     Methods
     -------
@@ -79,6 +82,7 @@ class AliasApp(MDApp):
     sm = None
     active_game = BooleanProperty(False)
     dict_idxs = None
+    buttons_ready_to_use = BooleanProperty(False)
 
     def create_main_game(self, round_duration, selected_dictionary, teams,
                          penalty, last_word, points_to_win):
@@ -176,6 +180,16 @@ class AliasApp(MDApp):
         })
 
     def save_dict_idx(self, current_dict, current_dict_idx):
+        '''
+        Save index of the current dictionary to the app store
+
+        Parameters
+        ----------
+        current_dict : str
+            name of current dictionary
+        current_dict_idx : int
+            index of current word in the dictionary
+        '''
         dict_idxs = self.store.get('dicts_idxs')
         dict_idxs[current_dict] = current_dict_idx
         self.store.put('dicts_idxs', **dict_idxs)
@@ -211,8 +225,6 @@ class AliasApp(MDApp):
                 json.dump(dicts, f)
             self.store.put('dicts_idxs', **idxs)
 
-        self.sm.screens[0].continue_button_active = bool(self.active_game)
-
     def on_pause(self):
         if self.active_game:
             self.save_current_game()
@@ -229,6 +241,13 @@ class AliasApp(MDApp):
             'images',
             'round_background',
             FitImage(source="assets/imgs/round.png")
+        )
+
+        # enable buttons only in 2 second after build to avoid bugs
+        def show_menu_buttons():
+            self.buttons_ready_to_use = True
+        Clock.schedule_once(
+            lambda _: show_menu_buttons(), 2
         )
 
         return self.sm
