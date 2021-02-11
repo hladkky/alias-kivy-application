@@ -158,7 +158,7 @@ class AliasApp(MDApp):
         Save main game of the application
         '''
         main_game = self.sm.get_screen('main_game')
-        self.save_dict_idx(main_game.dicitionary_name, main_game.dict_idx)
+        self.save_dict_idx(main_game.dictionary_name, main_game.dict_idx)
         self.store.put('active_game', **{
             key: getattr(main_game, key)
             for key in (
