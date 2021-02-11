@@ -7,6 +7,7 @@ from kivy.properties import NumericProperty
 from kivy.clock import Clock
 from kivy.animation import Animation
 from kivy.metrics import dp
+from kivy.cache import Cache
 
 from audioplayer import AudioPlayer
 
@@ -70,6 +71,7 @@ class RoundScreen(Screen):
         '''
         Kivy method overriden to generate first default card on the screen
         '''
+        self.add_widget(Cache.get('images', 'round_background'), 20)
         self.generate_card(first=True)
 
     def generate_card(self, first=False):

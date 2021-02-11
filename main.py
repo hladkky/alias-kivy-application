@@ -19,11 +19,11 @@ from kivy.loader import Loader
 from kivy.core.window import Window
 from kivy.config import Config
 from kivy.storage.jsonstore import JsonStore
-from kivy.uix.screenmanager import ScreenManagerException
 from kivy.properties import BooleanProperty
 from kivy.cache import Cache
 
 from kivymd.app import MDApp
+from kivymd.utils.fitimage import FitImage
 
 from widgets.widgets import TextButton, Dialog
 
@@ -225,11 +225,11 @@ class AliasApp(MDApp):
         self.theme_cls.theme_style = 'Dark'
         self.sm = Builder.load_file('main.kv')
 
-        # Cache.append(
-        #     'images',
-        #     'main_background'
-        # )
-        # FitImage(source="assets/imgs/back.png")
+        Cache.append(
+            'images',
+            'round_background',
+            FitImage(source="assets/imgs/round.png")
+        )
 
         return self.sm
 
