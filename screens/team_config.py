@@ -1,3 +1,7 @@
+'''
+Team configuration screen.
+'''
+
 import random
 
 from kivy.metrics import dp
@@ -10,34 +14,79 @@ from widgets.widgets import (
     CloseIcon,
 )
 
-from constants.team_namings import TEAM_NAMES
+from constants.team_names import TEAM_NAMES
 
 
 class TeamConfigScreen(ConfigScreen):
-    title = "У запеклій грі зійдуться:"
-    button_text = "До налаштувань"
-    next_button = None
+    '''
+    Screen with team configuration where team names and their amount are being chosen
 
+    Attributes
+    ----------
+    team_list : list[str]
+        team that won the game
+
+    Methods
+    -------
+    on_kv_post(_):
+        kivy method
+
+    to_next_screen(_):
+        route to the game configuration screen
+
+    on_enter():
+        kivy method
+
+    add_team():
+        add team to the team_list
+
+    remove_team(icon):
+        remove team from the team_list
+
+    toggle_add_team_button(show):
+        show or hide adding team button
+
+    toggle_close_icons(show):
+        show or hide close icons for each team label
+    '''
     team_list = []
     team_height = dp(60)
 
     def on_kv_post(self, _):
+        '''
+        Kivy method overriden to bind function to the screen button
+        '''
         self.ids.screen_bottom_button.ids.button.bind(
             on_press=self.to_next_screen)
 
     def to_next_screen(self, _):
+        '''
+        Route to the next screen, that is game configuration
+        '''
         self.manager.current = "game_config"
 
     def on_enter(self):
+        '''
+        Kivy method overriden to add first 2 teams after enter the screen
+        '''
         if not self.team_list:
             for _ in range(2):
                 self.add_team()
-        
-        self.toggle_close_icons(show=False if len(self.team_list) == 2 else True)
 
-        self.next_button = self.to_next_screen
+        self.toggle_close_icons(
+            show=False if len(
+                self.team_list) == 2 else True)
 
-    def add_team(self, with_animation=True):
+    def on_leave(self):
+        '''
+        Kivy method overriden to remove team label widgets
+        '''
+        self.ids.team_list.clear_widgets()
+
+    def add_team(self):
+        '''
+        Add one team to the team_list and show ot on the screen
+        '''
         if len(self.team_list) > 4:
             return
 
@@ -48,26 +97,34 @@ class TeamConfigScreen(ConfigScreen):
         new_team.ids.close_icon_button_container.add_widget(
             CloseIcon(on_press=self.remove_team))
 
-        if with_animation:
-            new_team.opacity = 0
-            new_team.height = 0
+        new_team.opacity = 0
+        new_team.height = 0
 
-            self.ids.team_list.add_widget(new_team)
-            animation = Animation(opacity=1,
-                                  height=self.team_height,
-                                  d=.3,
-                                  t="in_out_quad")
-            animation.start(new_team)
-        else:
-            self.ids.team_list.add_widget(new_team)
+        self.ids.team_list.add_widget(new_team)
+        animation = Animation(
+            opacity=1,
+            height=self.team_height,
+            d=.3,
+            t="in_out_quad"
+        )
+        animation.start(new_team)
 
         if len(self.team_list) == 3:
             self.toggle_close_icons(True)
         elif len(self.team_list) == 5:
             self.toggle_add_team_button(show=False)
 
-    def remove_team(self, instance):
-        team_to_delete = instance.parent.parent.parent
+    def remove_team(self, icon):
+        '''
+        Remove team from the team_list and screen
+
+        Parameters
+        ----------
+        icon : CloseIcon
+            icon that belongs to the removing team
+        '''
+        # get label by icon
+        team_to_delete = icon.parent.parent.parent
 
         try:
             self.team_list.remove(team_to_delete.text)
@@ -90,6 +147,14 @@ class TeamConfigScreen(ConfigScreen):
             self.toggle_add_team_button(show=True)
 
     def toggle_add_team_button(self, show=False):
+        '''
+        Toggle button that adds team.
+
+        Parameters
+        ----------
+        show : bool
+            if show button or not
+        '''
         if show:
             animation = Animation(opacity=1,
                                   height=self.team_height,
@@ -104,6 +169,14 @@ class TeamConfigScreen(ConfigScreen):
             animation.start(self.ids.add_button_container)
 
     def toggle_close_icons(self, show=False):
+        '''
+        Toggle close icons that remove teams.
+
+        Parameters
+        ----------
+        show : bool
+            if show icons or not
+        '''
         for child in self.ids.team_list.children:
             if show and not child.ids.close_icon_button_container.children:
                 child.ids.close_icon_button_container.add_widget(CloseIcon(

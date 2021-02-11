@@ -28,8 +28,11 @@ class GameConfigScreen(ConfigScreen):
         with open("./constants/dicts.json", encoding="utf-8") as f:
             dicts = json.load(f)
             for key, value in dicts.items():
-                self.dictionaries.append(
-                    {"title": key, "name": value["name"], "desc": value["description"]})
+                self.dictionaries.append({
+                    "title": key, "name": value["name"],
+                    "desc": value["description"],
+                    "volume": value["volume"]
+                })
         self.fill_dictionaries()
 
     def change_round_duration(self, delta):
@@ -58,6 +61,7 @@ class GameConfigScreen(ConfigScreen):
                 DictionaryCarouselItem(
                     title=dictionary["title"],
                     description=dictionary["desc"],
+                    amount_of_words=dictionary["volume"],
                     on_press=lambda _: self.select_dictionary(carousel)
                 )
             )

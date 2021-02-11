@@ -9,6 +9,11 @@
   text_color: WHITE_COLOR
 
 
+<Dialog>:
+  size_hint: .9, 1
+  md_bg_color: DARK_PINK_COLOR
+
+
 <BoldFontLabel>:
   text: ''
   font_name: "./fonts/GothamPro-Bold"
@@ -148,6 +153,21 @@
   pos_hint: {"center_x": .5, "center_y": .5}
   ripple_duration_in_fast: 0.1
 
+  MDFloatLayout:
+    pos: self.pos
+    size: self.size
+
+    FontLabel:
+      text: str(root.amount_of_words)
+      halign: "right"
+      size_hint: None, None
+      text_size: self.size
+      valign: "top"
+      font_size: "12sp"
+      pos: self.parent.pos
+      size: self.parent.size
+      padding: "5dp", "5dp"
+
   MDBoxLayout:
     size_hint: 1, 1
     orientation: "vertical"
@@ -221,7 +241,7 @@
       source: "./assets/imgs/cardfront.png"
     
     FontLabel:
-      padding: ("15dp", "15dp")
+      padding: "15dp", "15dp"
       text: root.title
       halign: "center"
 
