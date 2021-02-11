@@ -2,8 +2,6 @@ __pycache__/
 .buildozer/
 .vscode/
 
-.pylintrc
-
 # compiled apk
 _bin/
 
@@ -16,3 +14,8 @@ logs/
 colors.py
 icons.py
 test.py
+
+# unnecessary updates
+app_store.json
+constants/dict.json
+constants/words.json

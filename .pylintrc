@@ -1,0 +1,7 @@
+[MASTER]
+disable=
+  too-many-arguments,
+  too-many-function-args,
+  too-many-instance-attributes,
+  no-name-in-module,
+  import-error
