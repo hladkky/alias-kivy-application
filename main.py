@@ -157,25 +157,28 @@ class AliasApp(MDApp):
         '''
         Save main game of the application
         '''
-        try:
-            main_game = self.sm.get_screen('main_game')
-            self.store.put('active_game', **{
-                key: getattr(main_game, key)
-                for key in (
-                    'round_duration',
-                    'dictionary_name',
-                    'dict_idx',
-                    'teams',
-                    'penalty',
-                    'last_word',
-                    'points_to_win',
-                    'score',
-                    'current_round',
-                    'current_turn',
-                )
-            })
-        except ScreenManagerException:
-            pass
+        main_game = self.sm.get_screen('main_game')
+        self.save_dict_idx(main_game.dicitionary_name, main_game.dict_idx)
+        self.store.put('active_game', **{
+            key: getattr(main_game, key)
+            for key in (
+                'round_duration',
+                'dictionary_name',
+                'dict_idx',
+                'teams',
+                'penalty',
+                'last_word',
+                'points_to_win',
+                'score',
+                'current_round',
+                'current_turn',
+            )
+        })
+
+    def save_dict_idx(self, current_dict, current_dict_idx):
+        dict_idxs = self.store.get('dicts_idxs')
+        dict_idxs[current_dict] = current_dict_idx
+        self.store.put('dicts_idxs', **dict_idxs)
 
     def delete_current_game(self):
         '''
@@ -184,6 +187,7 @@ class AliasApp(MDApp):
         try:
             self.store.delete('active_game')
         except KeyError:
+            pass
         self.active_game = False
 
     def on_start(self):
@@ -199,10 +203,10 @@ class AliasApp(MDApp):
             with open('./constants/words.json', encoding='utf-8') as f:
                 dicts = json.load(f)
                 idxs = {}
-                for d, words in dicts.items():
+                for dictionary_name, words in dicts.items():
                     shuffle(words)
-                    dicts[d] = words
-                    idxs[d] = 0
+                    dicts[dictionary_name] = words
+                    idxs[dictionary_name] = 0
             with open('./constants/words.json', 'w', encoding='utf-8') as f:
                 json.dump(dicts, f)
             self.store.put('dicts_idxs', **idxs)
