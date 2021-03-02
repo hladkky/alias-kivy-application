@@ -135,7 +135,7 @@ class SubmitRoundScreen(BackgroundScreen):
         if self.guessed_team == self.main_team:
             self.main_team_points -= 1
         self.manager.add_widget(submit_last_word_screen)
-        self.manager.current = "submit_last_word"
+        self.manager.current = 'submit_last_word'
 
     def add_last_word_team(self, word, guessed_team):
         '''

@@ -1,0 +1,19 @@
+<AboutScreen>:
+  name: "about"
+  title: "Про гру"
+  button_text: "Круто!"
+
+  CustomScroll:
+    do_scroll: False, True
+    size_hint: .9, .75
+    pos_hint: {"center_x": .5, "top": .9}
+    bar_color: PINK_COLOR
+    
+    FontLabel:
+      id: text_about
+      size_hint_y: None
+      text_size: self.width, None
+      height: self.texture_size[1]
+      padding: 0, 30
+      line_height: 1.5
+      markup: True

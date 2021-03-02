@@ -33,3 +33,6 @@
       size_hint: 1, None
       opacity: 1 if app.buttons_ready_to_use else 0
       disabled: False if app.buttons_ready_to_use else True
+      on_press: 
+        app.sm.current = "about"
+

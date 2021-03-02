@@ -1,1 +1,1 @@
-{"dicts_idxs": {"base": 7}, "active_game": {"round_duration": 4, "dictionary_name": "base", "dict_idx": 7, "teams": ["\u0421\u043d\u0456\u0433\u043e\u0432\u0456 \u0431\u0430\u0431\u0438", "\u0428\u043a\u0432\u0430\u0440\u043a\u0438"], "penalty": true, "last_word": true, "points_to_win": 2, "score": [0, 0], "current_round": 1, "current_turn": 0}}
+{"dicts_idxs": {"base": 7, "": 0}, "active_game": {"round_duration": 0, "dictionary_name": "", "dict_idx": 0, "teams": [], "penalty": false, "last_word": "", "points_to_win": 0, "score": [], "current_round": 1, "current_turn": 0}}

@@ -63,7 +63,7 @@ class TeamConfigScreen(ConfigScreen):
         '''
         Route to the next screen, that is game configuration
         '''
-        self.manager.current = "game_config"
+        self.manager.current = 'game_config'
 
     def on_enter(self):
         '''
