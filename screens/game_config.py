@@ -143,9 +143,12 @@ class GameConfigScreen(ConfigScreen):
         self.ids.dictionaries_open.disabled = not self.ids.dictionaries_open.disabled
         self.ids.carousel_right.disabled = not self.ids.carousel_right.disabled
         self.ids.carousel_left.disabled = not self.ids.carousel_left.disabled
-        self.ids.dictionaries_open.opacity = int(not self.ids.dictionaries_open.opacity)
-        self.ids.carousel_right.opacity = int(not self.ids.carousel_right.opacity)
-        self.ids.carousel_left.opacity = int(not self.ids.carousel_left.opacity)
+        self.ids.dictionaries_open.opacity = int(
+            not self.ids.dictionaries_open.opacity)
+        self.ids.carousel_right.opacity = int(
+            not self.ids.carousel_right.opacity)
+        self.ids.carousel_left.opacity = int(
+            not self.ids.carousel_left.opacity)
 
     def hide_dictionaries(self):
         '''

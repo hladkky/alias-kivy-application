@@ -22,34 +22,34 @@ class SubmitRoundScreen(BackgroundScreen):
     word_label_with_team : WordLabelWithTeam
         label that consists of last work and team that guessed it.
         Visible only if `last_word` is True in `MainGameScreen`.
-    
+
     main_team : StringProperty
         the team name that has played the round
-    
+
     main_team_points : NumericProperty
         points of the team that has played the round
-    
+
     second_team : StringProperty
         the team name that guessed last word and is not main_team.
         Is being used only if `last_word` is True in `MainGameScreen`.
-    
+
     second_team_points : NumericProperty
         points of the team that guessed last word and is not main_team.
         Is being used only if `last_word` is True in `MainGameScreen`.
-    
+
     first_enter : bool
         is it first enter of the screen
-    
+
     guessed_team : str
         team that guessed last word.
         Is being used only if `last_word` is True in `MainGameScreen`.
-    
+
     words : list[str]
         words that were during the round
-    
+
     main_team_words : list[int]
         array, first value is amount of guessed words, second value - not guessed.
-    
+
     last_word : str
         last_word of the round
 

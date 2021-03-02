@@ -263,9 +263,11 @@ class AliasApp(MDApp):
 
         # ads
         self.ads = KivMob(TestIds.APP)  # os.environ.get('APP_ID')
-        self.ads.new_banner(TestIds.BANNER, top_pos=False)  # os.environ.get('INTERSTITIAL_ID')
+        # os.environ.get('INTERSTITIAL_ID')
+        self.ads.new_banner(TestIds.BANNER, top_pos=False)
         self.ads.request_banner()
-        self.ads.new_interstitial(TestIds.INTERSTITIAL)  # os.environ.get('INTERSTITIAL_ID')
+        # os.environ.get('INTERSTITIAL_ID')
+        self.ads.new_interstitial(TestIds.INTERSTITIAL)
         self.ads.request_interstitial()
 
         Cache.append(

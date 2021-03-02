@@ -55,7 +55,7 @@ class MainGameScreen(BackgroundScreen):
 
     score : list[int]
         score of the current game
-        
+
     dictionary : list[str]
         dictionary of words for the current game
 
