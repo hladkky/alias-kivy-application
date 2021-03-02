@@ -1,5 +1,5 @@
 '''
-Last word submit screen
+Last word submit screen.
 '''
 
 from kivy.properties import StringProperty
@@ -19,8 +19,10 @@ class SubmitLastWordScreen(BackgroundScreen):
     ----------
     word : StringProperty
         last word of the round
+    
     guessed_team : str
         team that guessed last word
+    
     main_game : MainGameScreen
         instance of the main game screen
 

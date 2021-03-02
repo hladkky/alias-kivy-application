@@ -1,5 +1,5 @@
 '''
-Menu screen
+Menu screen.
 '''
 
 from kivy.uix.screenmanager import Screen

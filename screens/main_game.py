@@ -1,5 +1,5 @@
 '''
-Main game screen
+Main game screen.
 '''
 
 import json

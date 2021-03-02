@@ -1,5 +1,5 @@
 '''
-Round screen
+Round screen.
 '''
 
 from kivy.uix.screenmanager import Screen
@@ -27,14 +27,19 @@ class RoundScreen(Screen):
     ----------
     timer_event : ClockEvent
         event that is called each second to reduce round time left
+    
     time_left : NumericPropery
         seconds to the end of round
+    
     audio_player : AudioPlayer
         instance of `AudioPlayer` to play sound when the round is going to end
+    
     words : list[tuple(str, bool)]
         list of words shown during the round and if it was guessed
+    
     main_game : MainGameScreen
         instance of active `MainGameScreen`
+    
     background_image_widget : FitImage
         widget with background image
 

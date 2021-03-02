@@ -1,5 +1,5 @@
 '''
-Screen with custom background
+Screen with custom background.
 '''
 
 from kivy.uix.screenmanager import Screen

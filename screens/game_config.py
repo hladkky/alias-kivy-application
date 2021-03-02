@@ -1,3 +1,7 @@
+'''
+Game configuration screen.
+'''
+
 import json
 
 from kivy.app import App
@@ -13,16 +17,59 @@ from widgets.widgets import (
 
 
 class GameConfigScreen(ConfigScreen):
-    title = "Гра відбудеться у таких умовах:"
-    button_text = "ГРАТИ"
-    next_button = None
-    dictionaries = []
+    '''
+    Screen where game options are choosen and new main game is created.
 
+    Attributes
+    ----------
+    dictionaries : list[dict]
+        list of available dictionaries with information about each one
+
+    round_duration : int
+        round duration in seconds
+
+    selected_dictionary : str
+        name of the selected dictionary
+
+    selected_dictionary_index : int
+        index of the selected dictionary
+
+    Methods
+    -------
+    on_kv_post(_):
+        kivy method
+
+    change_round_duration(delta):
+        change game round duration
+
+    select_dictionary(carousel):
+        select game dictionary
+
+    show_dictionaries():
+        display all the dictionaries available in the game
+
+    fill_dictionaries():
+        load all dictionaries shown on the screen
+
+    toggle_carousel_buttons():
+        toggle carousel button when the carousel appear or disappear
+
+    hide_dictionaries():
+        remove from the screen all the dictionaries available in the game
+
+    start_main_game(self, _):
+        start new main game
+    '''
+    dictionaries = []
     round_duration = NumericProperty(60)
     selected_dictionary = StringProperty("")
     selected_dictionary_index = None
 
     def on_kv_post(self, _):
+        '''
+        Kivy method overridden to bind function to the screen button and
+        load all available game dictionaries from the file
+        '''
         self.ids.screen_bottom_button.ids.button.bind(
             on_press=self.start_main_game)
         with open("./constants/dicts.json", encoding="utf-8") as f:
@@ -36,16 +83,35 @@ class GameConfigScreen(ConfigScreen):
         self.fill_dictionaries()
 
     def change_round_duration(self, delta):
+        '''
+        Change round duration game option
+
+        Parameters
+        ----------
+        delta : int
+            changes that should be applied to round duration
+        '''
         if self.round_duration + delta > 0 and self.round_duration + delta <= 180:
             self.round_duration = self.round_duration + delta
 
     def select_dictionary(self, carousel):
+        '''
+        Select game dictionary for new main game
+
+        Parameters
+        ----------
+        carousel : Carousel
+            instance of the kivy Carousel
+        '''
         if self.dictionaries[carousel.index]["name"]:
             self.selected_dictionary = carousel.current_slide.ids.dict_name.text
             self.selected_dictionary_index = carousel.index
             self.hide_dictionaries()
 
     def show_dictionaries(self, _):
+        '''
+        Open carousel with dictionaries to choose
+        '''
         dict_layout = self.ids.dictionaries_layout
         dict_label = self.ids.dictionaries_label
 
@@ -56,6 +122,9 @@ class GameConfigScreen(ConfigScreen):
         anim.start(dict_layout.parent)
 
     def fill_dictionaries(self):
+        '''
+        Fill kivy Carousel with items with dictionaries
+        '''
         carousel = self.ids.dictionaries_layout.ids.carousel
         for _, dictionary in enumerate(self.dictionaries):
             carousel.add_widget(
@@ -68,6 +137,9 @@ class GameConfigScreen(ConfigScreen):
             )
 
     def toggle_carousel_buttons(self):
+        '''
+        Toggle carousel button
+        '''
         self.ids.dictionaries_open.disabled = not self.ids.dictionaries_open.disabled
         self.ids.carousel_right.disabled = not self.ids.carousel_right.disabled
         self.ids.carousel_left.disabled = not self.ids.carousel_left.disabled
@@ -76,12 +148,18 @@ class GameConfigScreen(ConfigScreen):
         self.ids.carousel_left.opacity = int(not self.ids.carousel_left.opacity)
 
     def hide_dictionaries(self):
+        '''
+        Hide carousel with dictionaries to choose
+        '''
         dict_layout = self.ids.dictionaries_layout
         anim = Animation(height=0, d=.3)
         anim.bind(on_complete=lambda anim, wid: self.toggle_carousel_buttons())
         anim.start(dict_layout.parent)
 
     def start_main_game(self, _):
+        '''
+        Start main game and call App creating main game method
+        '''
         if self.selected_dictionary_index is not None:
             App.get_running_app().create_main_game(
                 round_duration=self.round_duration,
