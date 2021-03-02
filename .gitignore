@@ -8,6 +8,9 @@ _bin/
 # temporary
 .upd/
 
+# environment variables
+.env
+
 logs/
 
 # kivy showcases

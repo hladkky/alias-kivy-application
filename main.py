@@ -1,15 +1,7 @@
 '''
-Alias application.
-
-Alias is a board game, where the objective of the players is to explain words to each other.
-Learn more here: https://en.wikipedia.org/wiki/Alias_(board_game)
-
-This application is created to simulate board game to have fun with friends.
-The main specification is that this game is totally ukrainian.
-
-Author : Hladkko © Yaroslav Hladkyi
+Main file where application starts
 '''
-
+import os
 import json
 from random import shuffle
 
@@ -25,6 +17,8 @@ from kivy.clock import Clock
 
 from kivymd.app import MDApp
 from kivymd.utils.fitimage import FitImage
+
+from kivmob import KivMob, TestIds
 
 from widgets.widgets import TextButton, Dialog
 
@@ -47,6 +41,8 @@ class AliasApp(MDApp):
         dict with dictionaries names and indexes of current word in them
     buttons_ready_to_use : BooleanProperty
         buttons enabled or not on the menu screen
+    ads : KivMob
+        instance of KivMob to manage advertisements
 
     Methods
     -------
@@ -60,11 +56,17 @@ class AliasApp(MDApp):
     load_main_game():
         load active game configuration from the `store` and switch to it
 
+    start_main_game():
+        switch to the main game screen
+
     save_current_game():
         save configuration of active game to the `store` and toggle `active_game` indicator
 
     delete_current_game():
         remove configuration of active game from the `store` and toggle `active_game` indicator
+
+    show_banner():
+        show ads banner
 
     on_start():
         kivy method
@@ -83,6 +85,7 @@ class AliasApp(MDApp):
     active_game = BooleanProperty(False)
     dict_idxs = None
     buttons_ready_to_use = BooleanProperty(False)
+    ads = None
 
     def create_main_game(self, round_duration, selected_dictionary, teams,
                          penalty, last_word, points_to_win):
@@ -117,7 +120,7 @@ class AliasApp(MDApp):
             current_round=1,
             current_turn=0
         )
-        self.sm.current = 'main_game'
+        self.start_main_game()
         self.active_game = True
 
     def to_game_config(self):
@@ -155,6 +158,13 @@ class AliasApp(MDApp):
         active_game_cofig = self.store.get('active_game')
         main_game = self.sm.get_screen('main_game')
         main_game.load_configuration(**active_game_cofig)
+        self.start_main_game()
+
+    def start_main_game(self):
+        '''
+        Show ads and switch to main game screen
+        '''
+        self.ads.show_interstitial()
         self.sm.current = 'main_game'
 
     def save_current_game(self):
@@ -204,6 +214,20 @@ class AliasApp(MDApp):
             pass
         self.active_game = False
 
+    def toggle_banner(self, show):
+        '''
+        Toggle banner on the screen
+
+        Parameters
+        ----------
+        show : bool
+            whether to show banner or hide
+        '''
+        if show:
+            self.ads.show_banner()
+        else:
+            self.ads.hide_banner()
+
     def on_start(self):
         try:
             self.store.get('active_game')
@@ -236,6 +260,13 @@ class AliasApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = 'Dark'
         self.sm = Builder.load_file('main.kv')
+
+        # ads
+        self.ads = KivMob(TestIds.APP)  # os.environ.get('APP_ID')
+        self.ads.new_banner(TestIds.BANNER, top_pos=False)  # os.environ.get('INTERSTITIAL_ID')
+        self.ads.request_banner()
+        self.ads.new_interstitial(TestIds.INTERSTITIAL)  # os.environ.get('INTERSTITIAL_ID')
+        self.ads.request_interstitial()
 
         Cache.append(
             'images',

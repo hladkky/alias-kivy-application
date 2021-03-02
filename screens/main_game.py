@@ -7,6 +7,9 @@ import json
 from kivy.app import App
 from kivy.properties import NumericProperty
 from kivy.metrics import dp
+from kivy.core.window import Window
+
+from utils import determine_banner_height
 
 from screens.background import BackgroundScreen
 from screens.round import RoundScreen
@@ -25,24 +28,34 @@ class MainGameScreen(BackgroundScreen):
     ----------
     round_duration : NumericProperty
         duration of the round in seconds
+
     current_round : NumericProperty
         current round of the game
+
     current_turn : NumericProperty
         current turn of the round
+
     points_to_win : NumericProperty
         required amount of points to win the game
+
     teams : list[str]
         list of team names
+
     dictionary_name : str
         chosen dictionary for the game
+
     dict_idx : int
         current index of chosen dictionary
+
     penalty : bool
         whether to use a penalty for a skipped word or not
+
     last_word : str
         last word of the round
+
     score : list[int]
         score of the current game
+        
     dictionary : list[str]
         dictionary of words for the current game
 
@@ -50,6 +63,9 @@ class MainGameScreen(BackgroundScreen):
     -------
     on_pre_enter():
         kivy method
+
+    on_pre_leave():
+        kive method
 
     on_kv_post(_):
         kivy method
@@ -93,14 +109,24 @@ class MainGameScreen(BackgroundScreen):
 
     def on_pre_enter(self):
         '''
-        Kivy method overriden to set current team turn
+        Kivy method overriden to set current team turn and show banner
         '''
+        App.get_running_app().toggle_banner(show=True)
         self.ids.current_turn.text = self.get_current_team()
+
+    def on_pre_leave(self):
+        '''
+        Kivy method overriden to hide banner
+        '''
+        App.get_running_app().toggle_banner(show=False)
 
     def on_kv_post(self, _):
         '''
         Kivy method overriden to bind function to the screen button
+        and load ads banner
         '''
+        banner_height = determine_banner_height()
+        self.ids.content.height = Window.height - dp(banner_height)
         self.ids.screen_bottom_button.ids.button.bind(
             on_press=self.to_next_round)
 
@@ -132,12 +158,12 @@ class MainGameScreen(BackgroundScreen):
         current_turn : int
             current turn of the round
         '''
-        self.round_duration = 4  # round_duration
+        self.round_duration = round_duration
         self.dictionary_name = dictionary_name
         self.teams = teams
         self.penalty = penalty
         self.last_word = last_word
-        self.points_to_win = 2  # points_to_win
+        self.points_to_win = points_to_win
         self.dict_idx = dict_idx
         self.score = score
         self.current_turn = current_turn

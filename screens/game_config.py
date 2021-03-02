@@ -20,7 +20,7 @@ class GameConfigScreen(ConfigScreen):
 
     round_duration = NumericProperty(60)
     selected_dictionary = StringProperty("")
-    selected_dictionary_index = 0
+    selected_dictionary_index = None
 
     def on_kv_post(self, _):
         self.ids.screen_bottom_button.ids.button.bind(
@@ -51,8 +51,9 @@ class GameConfigScreen(ConfigScreen):
 
         dict_layout.y = dict_label.y - dict_label.height - 20
 
-        self.animate_carousel_buttons("open")
-        Animation(height=dp(100), d=.3).start(dict_layout.parent)
+        anim = Animation(height=dp(100), d=.3)
+        anim.bind(on_complete=lambda anim, wid: self.toggle_carousel_buttons())
+        anim.start(dict_layout.parent)
 
     def fill_dictionaries(self):
         carousel = self.ids.dictionaries_layout.ids.carousel
@@ -66,26 +67,19 @@ class GameConfigScreen(ConfigScreen):
                 )
             )
 
-    def animate_carousel_buttons(self, mode="close"):
-        if mode == "open":
-            dictionary_open_button_anim = Animation(opacity=0, d=.3)
-            slide_button_anim = Animation(opacity=1, d=.3)
-            self.ids.dictionaries_open.disabled = True
-        else:
-            dictionary_open_button_anim = Animation(opacity=1, d=.3)
-            slide_button_anim = Animation(opacity=0, d=.3)
-            self.ids.carousel_right.disabled = True
-            self.ids.carousel_left.disabled = True
-
-        dictionary_open_button_anim.start(self.ids.dictionaries_open)
-        slide_button_anim.start(self.ids.carousel_right)
-        slide_button_anim.start(self.ids.carousel_left)
+    def toggle_carousel_buttons(self):
+        self.ids.dictionaries_open.disabled = not self.ids.dictionaries_open.disabled
+        self.ids.carousel_right.disabled = not self.ids.carousel_right.disabled
+        self.ids.carousel_left.disabled = not self.ids.carousel_left.disabled
+        self.ids.dictionaries_open.opacity = int(not self.ids.dictionaries_open.opacity)
+        self.ids.carousel_right.opacity = int(not self.ids.carousel_right.opacity)
+        self.ids.carousel_left.opacity = int(not self.ids.carousel_left.opacity)
 
     def hide_dictionaries(self):
-        self.animate_carousel_buttons()
         dict_layout = self.ids.dictionaries_layout
-
-        Animation(height=0, d=.3).start(dict_layout.parent)
+        anim = Animation(height=0, d=.3)
+        anim.bind(on_complete=lambda anim, wid: self.toggle_carousel_buttons())
+        anim.start(dict_layout.parent)
 
     def start_main_game(self, _):
         if self.selected_dictionary_index is not None:

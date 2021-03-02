@@ -44,5 +44,4 @@ class AudioPlayer():
             self.sound = self.ticking
 
         if self.sound:
-            self.sound.volume = 0
             self.sound.play()

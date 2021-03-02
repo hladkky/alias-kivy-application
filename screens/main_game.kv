@@ -1,46 +1,50 @@
 <MainGameScreen>:
   name: "main_game"
 
-  ScreenTitle:
-    title: "Гра до " + str(root.points_to_win) + " у розпалі!"
-
-  MDBoxLayout:
-    size_hint: 1, 1
-
-  CustomScroll:
-    do_scroll: False, True
-    size_hint: .9, .5
-    pos_hint: {"center_x": .5, "top": .9}
-    bar_color: PINK_COLOR
-
-    MDList:
-      id: teams
-      size_hint: 1, None
-  
-  MDBoxLayout:
+  MDFloatLayout:
+    id: content
+    size_hint_y: None
+    pos_hint: {"top": 1}
     orientation: "vertical"
-    adaptive_height: True
-    size_hint: .9, .25
-    pos_hint: {"center_x": .5, "top": .4}
-    
-    FontLabel:
-      id: current_round
-      size_hint: 1, .2
-      halign: "center"
-      text: "Раунд " + str(root.current_round)
-    
-    FontLabel:
-      size_hint: 1, .2
-      markup: True
-      halign: "center"
-      text: "Готуються:"
 
-    BoldFontLabel:
-      id: current_turn
-      size_hint: 1, .6
-      font_size: "28sp"
-      halign: "center"
+    ScreenTitle:
+      title: "Гра до " + str(root.points_to_win) + " у розпалі!"
 
-  ScreenBottomButton:
-    id: screen_bottom_button
-    button_text: "ДО ГРИ"
+    CustomScroll:
+      do_scroll: False, True
+      size_hint: .9, .5
+      pos_hint: {"center_x": .5, "top": .9}
+      bar_color: PINK_COLOR
+
+      MDList:
+        id: teams
+        size_hint: 1, None
+    
+    MDBoxLayout:
+      orientation: "vertical"
+      adaptive_height: True
+      size_hint: .9, .25
+      pos_hint: {"center_x": .5, "top": .4}
+      
+      FontLabel:
+        id: current_round
+        size_hint: 1, .2
+        halign: "center"
+        text: "Раунд " + str(root.current_round)
+      
+      FontLabel:
+        size_hint: 1, .2
+        markup: True
+        halign: "center"
+        text: "Готуються:"
+
+      BoldFontLabel:
+        id: current_turn
+        size_hint: 1, .6
+        font_size: "28sp"
+        halign: "center"
+
+    ScreenBottomButton:
+      id: screen_bottom_button
+      pos_hint: {"top": .1, "center_x": .5}
+      button_text: "ДО ГРИ"
