@@ -186,6 +186,7 @@ class MainGameScreen(BackgroundScreen):
         ----------
         team_label : str
             team name for which updates are performing
+
         delta : int
             integer two update amount of points of specified team.
             Equals -1 or 1
@@ -252,6 +253,9 @@ class MainGameScreen(BackgroundScreen):
             current_team_turn = self.get_current_team()
             self.check_end_of_game()
 
+            if self.current_round > 1 and self.current_round % 2 == 1:
+                App.get_running_app().ads.show_interstitial()
+
         self.ids.current_turn.text = current_team_turn
 
     def check_end_of_game(self):
@@ -261,7 +265,7 @@ class MainGameScreen(BackgroundScreen):
         '''
         if self.points_to_win <= max(self.score) and sum(
                 max(self.score) == team_score for team_score in self.score
-                ) == 1:
+        ) == 1:
             self.to_winner_screen()
 
     def to_winner_screen(self):
