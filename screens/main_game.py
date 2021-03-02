@@ -259,9 +259,10 @@ class MainGameScreen(BackgroundScreen):
         Check winning condition.
         And if so, go to the winner screen.
         '''
-        if self.points_to_win <= max(self.score):
-            if sum(max(self.score) == team_score for team_score in self.score) == 1:
-                self.to_winner_screen()
+        if self.points_to_win <= max(self.score) and sum(
+                max(self.score) == team_score for team_score in self.score
+                ) == 1:
+            self.to_winner_screen()
 
     def to_winner_screen(self):
         '''
