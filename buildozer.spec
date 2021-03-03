@@ -28,7 +28,7 @@ source.exclude_dirs = tests, bin
 #source.exclude_patterns
 
 # (str) Application versioning (method 1)
-version = 0.1.1
+version = 0.3.10
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -46,10 +46,10 @@ requirements = python3,kivy==master,git+https://github.com/HeaTTheatR/KivyMD.git
 #garden_requirements =
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/assets/gifs/loading.gif
+# presplash.filename = %(source.dir)s/assets/gifs/loading.gif
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/assets/icon.png
+# icon.filename = %(source.dir)s/assets/icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
