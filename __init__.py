@@ -10,4 +10,4 @@ The main specification is that this game is totally ukrainian.
 Author : Hladkko © Yaroslav Hladkyi
 '''
 
-__version__ = "0.2.2"
+__version__ = "0.3.3"

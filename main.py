@@ -18,7 +18,7 @@ from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.utils.fitimage import FitImage
 
-from kivmob import KivMob
+from kivmob import KivMob, TestIds
 
 from widgets.widgets import TextButton, Dialog
 
@@ -263,10 +263,10 @@ class AliasApp(MDApp):
         self.sm = Builder.load_file('main.kv')
 
         # ads
-        self.ads = KivMob(os.environ.get('APP_ID'))
-        self.ads.new_banner(os.environ.get('BANNER_ID'), top_pos=False)
+        self.ads = KivMob('ca-app-pub-3940256099942544~3347511713')  # os.environ.get('APP_ID'))
+        self.ads.new_banner(TestIds.BANNER, top_pos=False)  # os.environ.get('BANNER_ID')
         self.ads.request_banner()
-        self.ads.new_interstitial(os.environ.get('INTERSTITIAL_ID'))
+        self.ads.new_interstitial(TestIds.INTERSTITIAL)  # os.environ.get('INTERSTITIAL_ID'))
         self.ads.request_interstitial()
 
         Cache.append(

@@ -13,7 +13,7 @@ package.domain = org.alias_uk
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,gif,json,ttf,wav
+source.include_exts = py,png,jpg,kv,atlas,gif,json,ttf,wav,txt
 
 # (list) List of inclusions using pattern matching
 source.include_patterns = assets/*,constants/*,fonts/*,screens/*,widgets/*
@@ -85,7 +85,7 @@ fullscreen = 0
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE
 
 # (int) Target Android API, should be as high as possible.
-android.api = 27
+# android.api = 27
 
 # (int) Minimum API your APK will support.
 android.minapi = 21

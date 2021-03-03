@@ -21,5 +21,5 @@ class AboutScreen(ConfigScreen):
         self.ids.screen_bottom_button.ids.button.bind(
             on_press=lambda _: back_to_menu())
 
-        with open('constants/about_game.txt', encoding='utf-8') as f:
+        with open('./constants/about_game.txt', encoding='utf-8') as f:
             self.ids.text_about.text = f.read()
