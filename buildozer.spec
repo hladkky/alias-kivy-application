@@ -153,7 +153,7 @@ android.sdk = 24
 
 # (list) Gradle dependencies to add (currently works only with sdl2_gradle
 # bootstrap)
-android.gradle_dependencies = 'com.google.firebase:firebase-ads:10.2.0'
+# android.gradle_dependencies = 'com.google.firebase:firebase-ads:10.2.0'
 
 # (list) add java compile options
 # this can for example be necessary when importing certain java libraries using the 'android.gradle_dependencies' option
@@ -200,7 +200,7 @@ android.gradle_dependencies = 'com.google.firebase:firebase-ads:10.2.0'
 #android.wakelock = False
 
 # (list) Android application meta-data to set (key=value format)
-android.meta_data = com.google.android.gms.ads.APPLICATION_ID={ca-app-pub-3940256099942544~3347511713}
+# android.meta_data = com.google.android.gms.ads.APPLICATION_ID={ca-app-pub-3940256099942544~3347511713}
 
 # (list) Android library project to add (will be added in the
 # project.properties automatically.)
