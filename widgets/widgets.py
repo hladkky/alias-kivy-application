@@ -29,6 +29,18 @@ class BoldFontLabel(MDLabel):
     '''
 
 
+class ScreenTitle(MDFloatLayout):
+    '''
+    Title of the screen
+    '''
+
+
+class ScreenBottomButton(MDFloatLayout):
+    '''
+    Button at the bottom of the screen
+    '''
+
+
 class TeamLabel(MDBoxLayout):
     '''
     Label of one team on the `TeamConfigScreen`

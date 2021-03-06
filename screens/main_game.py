@@ -253,8 +253,7 @@ class MainGameScreen(BackgroundScreen):
             current_team_turn = self.get_current_team()
             self.check_end_of_game()
 
-            if self.current_round > 1 and self.current_round % 2 == 1:
-                App.get_running_app().ads.show_interstitial()
+            App.get_running_app().show_interstitial()
 
         self.ids.current_turn.text = current_team_turn
 

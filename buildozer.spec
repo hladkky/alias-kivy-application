@@ -33,7 +33,7 @@ version.filename = %(source.dir)s/__init__.py
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy==master,https://github.com/kivymd/KivyMD/archive/master.zip,sdl2_ttf==2.0.15,kivmob
+requirements = python3,kivy==2.0.0,https://github.com/kivymd/KivyMD/archive/master.zip,sdl2_ttf==2.0.15,kivmob
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -65,7 +65,7 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 1.9.1
+osx.kivy_version = 2.0.0
 
 #
 # Android specific
@@ -85,7 +85,7 @@ fullscreen = 0
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE
 
 # (int) Target Android API, should be as high as possible.
-# android.api = 27
+android.api = 29
 
 # (int) Minimum API your APK will support.
 android.minapi = 21
@@ -153,7 +153,7 @@ android.sdk = 24
 
 # (list) Gradle dependencies to add (currently works only with sdl2_gradle
 # bootstrap)
-# android.gradle_dependencies = 'com.google.firebase:firebase-ads:10.2.0'
+android.gradle_dependencies = 'com.google.firebase:firebase-ads:10.2.0'
 
 # (list) add java compile options
 # this can for example be necessary when importing certain java libraries using the 'android.gradle_dependencies' option
@@ -200,7 +200,7 @@ android.sdk = 24
 #android.wakelock = False
 
 # (list) Android application meta-data to set (key=value format)
-# android.meta_data = com.google.android.gms.ads.APPLICATION_ID={ca-app-pub-3940256099942544~3347511713}
+android.meta_data = com.google.android.gms.ads.APPLICATION_ID={CENSORED}
 
 # (list) Android library project to add (will be added in the
 # project.properties automatically.)
@@ -216,11 +216,11 @@ android.sdk = 24
 #android.copy_libs = 1
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.arch = armeabi-v7a
+android.arch = arm64-v8a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
-# android.numeric_version = 1
+android.numeric_version = 3
 
 #
 # Python for android (p4a) specific

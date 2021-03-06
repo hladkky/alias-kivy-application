@@ -120,7 +120,7 @@ class AliasApp(MDApp):
             current_round=1,
             current_turn=0
         )
-        self.ads.show_interstitial()
+        self.show_interstitial()
         self.start_main_game()
         self.active_game = True
 
@@ -139,11 +139,11 @@ class AliasApp(MDApp):
                 text='Дані про поточну гру буде втрачено.',
                 buttons=[
                     TextButton(
-                        text="[size=16sp]Назад[size=16sp]",
+                        text="Назад",
                         on_release=lambda _: dialog.dismiss()
                     ),
                     TextButton(
-                        text="[size=16sp]Так[size=16sp]",
+                        text="Так",
                         on_release=lambda _: drop_game_and_create_new()
                     )
                 ],
@@ -159,7 +159,7 @@ class AliasApp(MDApp):
         active_game_cofig = self.store.get('active_game')
         main_game = self.sm.get_screen('main_game')
         main_game.load_configuration(**active_game_cofig)
-        self.ads.show_interstitial()
+        self.show_interstitial()
         self.start_main_game()
 
     def start_main_game(self):
@@ -225,9 +225,15 @@ class AliasApp(MDApp):
             whether to show banner or hide
         '''
         if show:
-            self.ads.show_banner()
+             self.ads.show_banner()
         else:
-            self.ads.hide_banner()
+             self.ads.hide_banner()
+
+    def show_interstitial(self):
+        if self.ads.is_interstitial_loaded():
+            self.ads.show_interstitial()
+        else:
+            self.ads.request_interstitial()
 
     def on_start(self):
         try:
@@ -263,10 +269,11 @@ class AliasApp(MDApp):
         self.sm = Builder.load_file('main.kv')
 
         # ads
-        self.ads = KivMob('ca-app-pub-3940256099942544~3347511713')  # os.environ.get('APP_ID'))
-        self.ads.new_banner(TestIds.BANNER, top_pos=False)  # os.environ.get('BANNER_ID')
+        self.ads = KivMob(os.environ.get('APP_ID'))
+        self.ads.add_test_device('70356742')
+        self.ads.new_banner(os.environ.get('BANNER_ID'), top_pos=False)
         self.ads.request_banner()
-        self.ads.new_interstitial(TestIds.INTERSTITIAL)  # os.environ.get('INTERSTITIAL_ID'))
+        self.ads.new_interstitial(os.environ.get('INTERSTITIAL_ID'))
         self.ads.request_interstitial()
 
         Cache.append(

@@ -72,6 +72,18 @@ class GameConfigScreen(ConfigScreen):
         '''
         self.ids.screen_bottom_button.ids.button.bind(
             on_press=self.start_main_game)
+
+        def change_time_button_callback(wid, pos, delta):
+            if wid.collide_point(*pos):
+                self.change_round_duration(delta)
+
+        self.ids.minus_time.bind(
+            on_touch_down=lambda wid, touch: change_time_button_callback(wid, touch.pos, -10)
+        )
+        self.ids.plus_time.bind(
+            on_touch_down=lambda wid, touch: change_time_button_callback(wid, touch.pos, +10)
+        )
+
         with open("./constants/dicts.json", encoding="utf-8") as f:
             dicts = json.load(f)
             for key, value in dicts.items():
