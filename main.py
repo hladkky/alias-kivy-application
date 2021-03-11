@@ -85,6 +85,7 @@ class AliasApp(MDApp):
     active_game = BooleanProperty(False)
     dict_idxs = None
     buttons_ready_to_use = BooleanProperty(False)
+    dialog = None
     ads = None
 
     def create_main_game(self, round_duration, selected_dictionary, teams,
@@ -128,27 +129,8 @@ class AliasApp(MDApp):
         '''
         Route to team config screen with dialog box if `active_game` is True
         '''
-        def drop_game_and_create_new():
-            self.delete_current_game()
-            dialog.dismiss()
-            self.to_game_config()
-
         if self.active_game:
-            dialog = Dialog(
-                title='Створити нову гру?',
-                text='Дані про поточну гру буде втрачено.',
-                buttons=[
-                    TextButton(
-                        text="Назад",
-                        on_release=lambda _: dialog.dismiss()
-                    ),
-                    TextButton(
-                        text="Так",
-                        on_release=lambda _: drop_game_and_create_new()
-                    )
-                ],
-            )
-            dialog.open()
+            self.dialog.open()
         else:
             self.sm.current = "team_config"
 
@@ -225,9 +207,9 @@ class AliasApp(MDApp):
             whether to show banner or hide
         '''
         if show:
-             self.ads.show_banner()
+            self.ads.show_banner()
         else:
-             self.ads.hide_banner()
+            self.ads.hide_banner()
 
     def show_interstitial(self):
         if self.ads.is_interstitial_loaded():
@@ -276,6 +258,26 @@ class AliasApp(MDApp):
         self.ads.new_interstitial(os.environ.get('INTERSTITIAL_ID'))
         self.ads.request_interstitial()
 
+        # dialog window to show when starting new game if active game exists
+        def drop_game_and_create_new():
+            self.delete_current_game()
+            self.dialog.dismiss()
+            self.to_game_config()
+        self.dialog = Dialog(
+            title='Створити нову гру?',
+            text='Дані про поточну гру буде втрачено.',
+            buttons=[
+                TextButton(
+                    text="Назад",
+                    on_release=lambda _: self.dialog.dismiss()
+                ),
+                TextButton(
+                    text="Так",
+                    on_release=lambda _: drop_game_and_create_new()
+                )
+            ],
+        )
+        
         Cache.append(
             'images',
             'round_background',
