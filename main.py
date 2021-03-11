@@ -277,7 +277,7 @@ class AliasApp(MDApp):
                 )
             ],
         )
-        
+
         Cache.append(
             'images',
             'round_background',

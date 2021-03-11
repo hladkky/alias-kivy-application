@@ -220,7 +220,7 @@ android.arch = arm64-v8a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
-android.numeric_version = 4
+android.numeric_version = 5
 
 #
 # Python for android (p4a) specific
