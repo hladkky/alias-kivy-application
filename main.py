@@ -248,6 +248,7 @@ class AliasApp(MDApp):
 
     def build(self):
         self.theme_cls.theme_style = 'Dark'
+
         self.sm = Builder.load_file('main.kv')
 
         # ads
