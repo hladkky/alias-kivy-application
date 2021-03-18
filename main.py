@@ -65,8 +65,14 @@ class AliasApp(MDApp):
     delete_current_game():
         remove configuration of active game from the `store` and toggle `active_game` indicator
 
-    show_banner():
-        show ads banner
+    toggle_banner():
+        toggle ads banner
+
+    show_interstitial():
+        show ads interstitial
+
+    drop_game_and_create_new():
+        delete current game and start configuring new
 
     on_start():
         kivy method
@@ -211,7 +217,18 @@ class AliasApp(MDApp):
         else:
             self.ads.hide_banner()
 
+    def drop_game_and_create_new(self):
+        '''
+        Delete current game and start configuring new when dialog applied
+        '''
+        self.delete_current_game()
+        self.dialog.dismiss()
+        self.to_game_config()
+
     def show_interstitial(self):
+        '''
+        Show ads interstitial
+        '''
         if self.ads.is_interstitial_loaded():
             self.ads.show_interstitial()
         else:
@@ -260,10 +277,6 @@ class AliasApp(MDApp):
         self.ads.request_interstitial()
 
         # dialog window to show when starting new game if active game exists
-        def drop_game_and_create_new():
-            self.delete_current_game()
-            self.dialog.dismiss()
-            self.to_game_config()
         self.dialog = Dialog(
             title='Створити нову гру?',
             text='Дані про поточну гру буде втрачено.',
@@ -274,7 +287,7 @@ class AliasApp(MDApp):
                 ),
                 TextButton(
                     text="Так",
-                    on_release=lambda _: drop_game_and_create_new()
+                    on_release=lambda _: self.drop_game_and_create_new()
                 )
             ],
         )
@@ -295,7 +308,7 @@ class AliasApp(MDApp):
         return self.sm
 
 
-Cache.register('images', limit=10)
+Cache.register('images', limit=2)
 
 Loader.num_workers = 4  # for smoother user experience
 Loader.loading_image = './assets/imgs/main.png'  # loading image for async images
