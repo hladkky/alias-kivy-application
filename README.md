@@ -1,6 +1,6 @@
 # alias-kivy-application
 
-[banner](./assets/imgs/banner.png)
+![banner](./assets/imgs/banner.png)
 
 ## Про гру
 
